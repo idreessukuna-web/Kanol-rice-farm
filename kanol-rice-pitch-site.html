@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kanol Rice Farm Limited - Nature's Finest Grain</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#a8a6a1",
+                    "outline": "#717973",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f3f0f0",
+                    "primary": "#012d1d",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary-fixed-variant": "#474743",
+                    "secondary": "#735c00",
+                    "on-surface-variant": "#414844",
+                    "tertiary-fixed-dim": "#c9c6c1",
+                    "on-primary-container": "#86af99",
+                    "inverse-primary": "#a5d0b9",
+                    "surface-variant": "#e4e2e1",
+                    "tertiary-fixed": "#e5e2dc",
+                    "on-primary-fixed": "#002114",
+                    "primary-fixed-dim": "#a5d0b9",
+                    "background": "#fcf9f8",
+                    "secondary-container": "#fed65b",
+                    "on-secondary-fixed": "#241a00",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#574500",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-secondary-container": "#745c00",
+                    "on-primary-fixed-variant": "#274e3d",
+                    "on-tertiary-fixed": "#1c1c18",
+                    "surface-container-high": "#eae7e7",
+                    "surface-dim": "#dcd9d9",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#3c3c38",
+                    "on-surface": "#1b1c1c",
+                    "surface-bright": "#fcf9f8",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c1c8c2",
+                    "surface-tint": "#3f6653",
+                    "tertiary": "#262623",
+                    "secondary-fixed": "#ffe088",
+                    "primary-fixed": "#c1ecd4",
+                    "surface-container": "#f0eded",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#1b4332",
+                    "inverse-surface": "#303030",
+                    "error": "#ba1a1a",
+                    "surface": "#fcf9f8",
+                    "on-background": "#1b1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "headline-md": [ "\"Source Serif 4\"" ],
+                    "display-lg": [ "\"Source Serif 4\"" ],
+                    "label-md": [ "Hanken Grotesk" ],
+                    "body-md": [ "Hanken Grotesk" ],
+                    "body-lg": [ "Hanken Grotesk" ],
+                    "display-lg-mobile": [ "\"Source Serif 4\"" ],
+                    "headline-sm": [ "\"Source Serif 4\"" ]
+            },
+            "fontSize": {
+                    "headline-md": [ "32px", { "lineHeight": "40px", "fontWeight": "600" } ],
+                    "display-lg": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700" } ],
+                    "label-md": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" } ],
+                    "body-md": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ],
+                    "body-lg": [ "18px", { "lineHeight": "28px", "fontWeight": "400" } ],
+                    "display-lg-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700" } ],
+                    "headline-sm": [ "24px", { "lineHeight": "32px", "fontWeight": "600" } ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-shadow-subtle {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .texture-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        /* Mobile menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        #mobile-menu.open { transform: translateX(0); }
+        #menu-backdrop {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #menu-backdrop.open { opacity: 1; pointer-events: auto; }
+        .weight-btn[aria-pressed="true"] {
+            border-color: #012d1d;
+            color: #012d1d;
+            background: #fcf9f8;
+        }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden">
+
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-background dark:bg-on-primary-fixed border-none">
+<nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<a class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed tracking-tight" href="#top">
+                Kanol Rice
+            </a>
+<div class="hidden md:flex items-center space-x-8 font-label-md text-label-md">
+<a class="text-primary dark:text-secondary-fixed border-b-2 border-primary dark:border-secondary-fixed pb-1 hover:text-primary dark:hover:text-secondary-fixed transition-colors opacity-80 duration-200" href="#top">Home</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="#products">Products</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="#story">About Us</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="#why">Sustainability</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="#contact">Contact Us</a>
+</div>
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27m%20interested%20in%20becoming%20a%20distributor%2Fpartner.%20Could%20we%20discuss%20details%3F" target="_blank" rel="noopener" class="bg-primary text-on-primary px-6 py-2 rounded font-label-md text-label-md hover:shadow-[0_4px_12px_rgba(1,45,29,0.15)] transition-shadow hidden md:block">
+                Partner With Us
+            </a>
+<button id="menu-toggle" class="md:hidden text-primary p-2" aria-label="Open Menu" aria-expanded="false" aria-controls="mobile-menu">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</nav>
+</header>
+
+<!-- Mobile Menu Backdrop -->
+<div id="menu-backdrop" class="fixed inset-0 bg-on-primary-fixed/50 z-[60] md:hidden"></div>
+
+<!-- Mobile Slide-out Menu -->
+<aside id="mobile-menu" class="fixed top-0 right-0 h-full w-[78%] max-w-xs bg-background dark:bg-on-primary-fixed z-[70] md:hidden shadow-xl flex flex-col">
+<div class="flex justify-between items-center px-margin-mobile py-4 border-b border-outline-variant/20">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Menu</span>
+<button id="menu-close" class="text-primary p-2" aria-label="Close Menu">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<nav class="flex flex-col px-margin-mobile py-6 gap-1 font-label-md text-label-md">
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-primary dark:text-secondary-fixed font-bold" href="#top">Home</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="#products">Products</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="#story">About Us</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="#why">Sustainability</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="#contact">Contact Us</a>
+</nav>
+<div class="mt-auto px-margin-mobile py-6 border-t border-outline-variant/20">
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27m%20interested%20in%20becoming%20a%20distributor%2Fpartner.%20Could%20we%20discuss%20details%3F" target="_blank" rel="noopener" class="mobile-nav-link block text-center bg-primary text-on-primary px-6 py-3 rounded font-label-md text-label-md">Partner With Us</a>
+</div>
+</aside>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative w-full h-[819px] md:h-[921px] max-w-container-max mx-auto md:px-margin-desktop md:py-8">
+<div class="w-full h-full rounded-none md:rounded-xl overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDhDddbaclbOVE8pb3st30v5zPv3OgZ6U5bBba0PtVpm7nea6FIILPC4285-tfCyfNhTBNWVbdaC4uNRyZfW-Vxqj5sZEo2mEr_yygZfeJ4vBLlW3E-VHnjQr9uB4m5uXGMlFo5zbOem0lBBvQQ9sQxuyj6qujc-vArY97Mw0qxyv37ER-kHtgnxmsISLzEl0WCgPEb2_kacvP6uUiKaLVVYY6PWnHoVPz4581Llsu3aSgATuyj8F7F4g')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent"></div>
+<div class="absolute bottom-0 left-0 w-full p-margin-mobile md:p-12 flex flex-col justify-end">
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-on-primary mb-4 max-w-3xl text-shadow-subtle">
+                        Nature's Finest Grain, Rooted in Heritage
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-primary/90 max-w-xl mb-8">
+                        A family farm ready for its next chapter. Sustainably grown, carefully processed, and looking for partners to bring it to more Nigerian tables.
+                    </p>
+<div class="flex gap-4 flex-wrap">
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27m%20interested%20in%20becoming%20a%20distributor%2Fpartner.%20Could%20we%20discuss%20details%3F" target="_blank" rel="noopener" class="bg-secondary text-on-secondary-fixed px-8 py-3 rounded font-label-md text-label-md hover:shadow-[0_4px_12px_rgba(115,92,0,0.2)] transition-shadow inline-flex items-center gap-2">
+                            Become a Partner
+                            <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27d%20like%20to%20place%20an%20order.%20Could%20you%20assist%20me%3F" target="_blank" rel="noopener" class="bg-on-primary text-primary px-8 py-3 rounded font-label-md text-label-md hover:shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-shadow inline-flex items-center gap-2">
+                            Order Now
+                            <span class="material-symbols-outlined text-[18px]" data-icon="shopping_bag">shopping_bag</span>
+</a>
+</div>
+<a href="#products" class="inline-block mt-6 text-on-primary/80 hover:text-on-primary font-label-md text-label-md underline underline-offset-4 transition-colors">
+                        See our rice varieties first ↓
+                    </a>
+</div>
+</div>
+</section>
+
+<!-- ============ WHY KANOL ============ -->
+<section id="why" class="scroll-mt-20 py-[80px] md:py-[120px] px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-md text-headline-md text-primary mb-4">Why Partner With Kanol?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Our commitment to excellence spans from the soil to your shelf, ensuring a product that is as good for the earth as it is for business.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 bg-surface-container-low rounded-xl p-8 md:p-12 flex flex-col justify-between group">
+<div>
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3">Unmatched Purity</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Sorted with precision technology and washed in pure spring water, our rice is free from impurities, delivering pristine white grains in every batch.</p>
+</div>
+<div class="mt-8 overflow-hidden rounded-lg h-48 relative">
+<div class="absolute inset-0 bg-cover bg-center transform group-hover:scale-105 transition-transform duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBKxKLEN7kLOvxbSE9bxjx0r7ifJuKObfq-wfe4PnkWcr6BbZTmMsDXHh6ZE2pn5DRowW3e_BmamSfoCISFyi--6GANaVTP_83112LGd_xnSiMvM7gfx_AZy7T-zfhMeHoy1SJHPgpKKcq6eBQU0Zb68QSV_TXEr7OUjG8maQklNE5k0Yk6MnOzfe6-vzWhDlfkLnDNQ6ywqqhaFUBhbOhYgaWg7q07p7gEf3TvWMBimae_9AzwwwbpJw')">
+</div>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="bg-surface-container rounded-xl p-8 flex-1">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined" data-icon="eco">eco</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3">Nutrient Rich</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Carefully milled to retain essential vitamins and minerals, providing wholesome energy for every family.</p>
+</div>
+<div class="bg-surface-container rounded-xl p-8 flex-1 border border-outline/10">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3">Sustainable Roots</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">We partner directly with local cooperatives, employing regenerative practices to protect the land for future generations.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ============ PRODUCTS (merged) ============ -->
+<section id="products" class="scroll-mt-20 py-[80px] bg-surface-container-lowest px-margin-mobile md:px-margin-desktop border-t border-outline/10">
+<div class="max-w-container-max mx-auto space-y-12">
+
+<header class="relative w-full h-[280px] min-h-[240px] rounded-xl flex items-center justify-center overflow-hidden mb-[80px] scroll-mt-24">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7q7UDpdXyVsBlQ-ispcr8XTQESxAefppuR0lRJqwt7xpwohtSdsKPjRNY4GcZReMj3K7krzL4etrMfgOeaD6Pf5lLo3j1TR_5u3WLzmY-_o5IYiw6up-PCyuICJ_XpsysEIhXiMf0U-jfbTAVEk70Fq7YbHJjcAK4qE0dRo81aBm8jqjKNxpnhduv7uWASP0bCdCX2KIDvJnknffqOXcDLo1xetwxKq1G9_nhp7G1dAmMmz70ncZkmg')"></div>
+<div class="absolute inset-0 bg-on-primary-fixed/60"></div>
+<div class="absolute inset-0 texture-overlay"></div>
+<div class="relative z-10 text-center px-margin-mobile">
+<h3 class="font-display-lg-mobile text-display-lg-mobile text-on-primary mb-2">Our Rice Varieties</h3>
+<p class="font-body-lg text-body-lg text-surface-container-low max-w-md mx-auto">Harvested with care, processed for perfection. Available for wholesale and retail partnership.</p>
+</div>
+</header>
+
+<div class="flex justify-between items-end mb-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Our Premium Harvest</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Curated varieties, ready for distribution.</p>
+</div>
+<button class="hidden md:flex items-center gap-2 text-primary font-label-md text-label-md px-4 py-2 border border-primary rounded hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="tune">tune</span>
+                Filter &amp; Sort
+            </button>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Product 1 -->
+<article class="bg-background rounded-xl overflow-hidden border border-primary/10" data-product="Premium Parboiled Rice">
+<div class="relative h-64 w-full">
+<img alt="Premium Parboiled Rice" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV6x_Zq1B65HAtWlzBB_Z60ny0NaNIklAW0hQqqYeWovWOcEwyLtdbYYI2-ais2lcerXfAemyTpVHd63K5tL5whTn5aiWuyI8D0acEe3hVLgRSVn0B11J-Zya80l0-s4j5XLqLeO8npZY8mtA7N1wayaIgSegUvm43cvarXv7_jtv4aQ6_dkz6bixY8H6YDGvlARJnAp2qFYhCESAVCFgS0na0AaYeOcxGydhAT9fgmU2pGp2JcJhi5A"/>
+<span class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container font-label-md text-label-md px-3 py-1 rounded-full shadow-sm">Bestseller</span>
+</div>
+<div class="p-6 space-y-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1">Premium Parboiled Rice</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Our signature long-grain parboiled rice. Stone-free, easy to cook, and perfectly textured for jollof or fried rice.</p>
+</div>
+<div class="space-y-2">
+<span class="font-label-md text-label-md text-on-surface">Available Package Sizes:</span>
+<div class="flex gap-2 flex-wrap" role="group" aria-label="Package size">
+<button type="button" data-weight="5kg" aria-pressed="true" class="weight-btn px-3 py-1.5 border border-primary text-primary font-label-md text-label-md rounded bg-surface transition-colors focus:ring-2 focus:ring-primary focus:outline-none">5kg</button>
+<button type="button" data-weight="10kg" aria-pressed="false" class="weight-btn px-3 py-1.5 border border-outline-variant text-on-surface-variant font-label-md text-label-md rounded hover:border-primary hover:text-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none">10kg</button>
+<button type="button" data-weight="50kg" aria-pressed="false" class="weight-btn px-3 py-1.5 border border-outline-variant text-on-surface-variant font-label-md text-label-md rounded hover:border-primary hover:text-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none">50kg</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/30">
+<div class="font-headline-sm text-headline-sm text-primary text-base">Bulk pricing on request</div>
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27d%20like%20to%20order%20Premium%20Parboiled%20Rice.%20Could%20you%20assist%20me%3F" data-order-link target="_blank" rel="noopener" class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm focus:ring-2 focus:ring-secondary focus:outline-none">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                            Order Now
+                        </a>
+</div>
+</div>
+</article>
+<!-- Product 2 -->
+<article class="bg-background rounded-xl overflow-hidden border border-primary/10" data-product="Authentic Ofada Rice">
+<div class="relative h-64 w-full">
+<img alt="Ofada Rice" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCNFSy9Yi45uUFV00Alq7z91xXjUmmvjBsvH1O2Nnw8n-r_5Gnf5w2bLuTufL_H2JWgMKAYQ4w2sFbm0TqiFJig-_vbD9aEduwAOzsrX1J-o5_bQP5Bnl5DrmOZGk1pqYjsRY1fjbQgVEPiU2YS7_VEeOCoDpO16z1I4p3p11Av592ht4HahIvRXR89FjOwHYVPgFyEkyHsMJj1WVEgRm_-4Xap-PpLVP0v6DGxDwyHCm5SmksLhnOBA"/>
+<span class="absolute top-4 left-4 bg-primary text-on-primary font-label-md text-label-md px-3 py-1 rounded-full shadow-sm">Organic</span>
+</div>
+<div class="p-6 space-y-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1">Authentic Ofada Rice</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Locally grown, unpolished short-grain rice with its distinct, robust aroma and rich nutritional profile.</p>
+</div>
+<div class="space-y-2">
+<span class="font-label-md text-label-md text-on-surface">Available Package Sizes:</span>
+<div class="flex gap-2 flex-wrap" role="group" aria-label="Package size">
+<button type="button" data-weight="1kg" aria-pressed="true" class="weight-btn px-3 py-1.5 border border-primary text-primary font-label-md text-label-md rounded bg-surface transition-colors focus:ring-2 focus:ring-primary focus:outline-none">1kg</button>
+<button type="button" data-weight="5kg" aria-pressed="false" class="weight-btn px-3 py-1.5 border border-outline-variant text-on-surface-variant font-label-md text-label-md rounded hover:border-primary hover:text-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none">5kg</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/30">
+<div class="font-headline-sm text-headline-sm text-primary text-base">Bulk pricing on request</div>
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27d%20like%20to%20order%20Authentic%20Ofada%20Rice.%20Could%20you%20assist%20me%3F" data-order-link target="_blank" rel="noopener" class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm focus:ring-2 focus:ring-secondary focus:outline-none">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                            Order Now
+                        </a>
+</div>
+</div>
+</article>
+<!-- Product 3 -->
+<article class="bg-background rounded-xl overflow-hidden border border-primary/10" data-product="Classic White">
+<div class="relative h-64 w-full">
+<img alt="Classic White Rice" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_AmilhlkBvU2TntZK3UQ-18CSjN8o9gxKJrU0CiGU3DeGqLNdM4PjRfcQqEq9rZblCp_23tQH9TTdQ9AW-fn4_BeZwgO01Mwn91lRcI174K9NCugbrOkt0Qx8xUibfLTEFlanxbShQRzTTPXEqah-OdxOsDp0nqohTSCPv103fLei6re7jvC5QYzj4Vm4eCZ9G8xw1y5J3CXsMO2sdbJ9tmEkSpX5Ke2unOOIDRyEj3Sasmk79w7n8Q"/>
+</div>
+<div class="p-6 space-y-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1">Classic White</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Soft, slightly sticky texture perfect for everyday meals.</p>
+</div>
+<div class="space-y-2">
+<span class="font-label-md text-label-md text-on-surface">Available Package Sizes:</span>
+<div class="flex gap-2 flex-wrap" role="group" aria-label="Package size">
+<button type="button" data-weight="5kg" aria-pressed="true" class="weight-btn px-3 py-1.5 border border-primary text-primary font-label-md text-label-md rounded bg-surface transition-colors focus:ring-2 focus:ring-primary focus:outline-none">5kg</button>
+<button type="button" data-weight="10kg" aria-pressed="false" class="weight-btn px-3 py-1.5 border border-outline-variant text-on-surface-variant font-label-md text-label-md rounded hover:border-primary hover:text-primary transition-colors focus:ring-2 focus:ring-primary focus:outline-none">10kg</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/30">
+<div class="font-headline-sm text-headline-sm text-primary text-base">Bulk pricing on request</div>
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27d%20like%20to%20order%20Classic%20White.%20Could%20you%20assist%20me%3F" data-order-link target="_blank" rel="noopener" class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm focus:ring-2 focus:ring-secondary focus:outline-none">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                            Order Now
+                        </a>
+</div>
+</div>
+</article>
+<!-- Product 4 -->
+<article class="bg-background rounded-xl overflow-hidden border border-primary/10" data-product="Rustic Brown">
+<div class="relative h-64 w-full">
+<img alt="Rustic Brown Rice" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU6I-c-_l-FyXwcIiNYqaosaomjqTRoKuWd9iu2UF6Ud27YOtF8FC5n9GEF2l022aviSCiypcabEWLw5brgScjZkadMEzjTgADregH2gey609PJC3oVb8mJDw_NbnIJ4lfUn7kfFkF0FCO88IO0fnS5Hf_PEGAZ_Su_Ie28usnlCuYljyVhletQwCZvMKVFdpPYKV_iaqKJW_W17eBEHbMpoMax1aRBudj2mAiMG9_oCR0azWUBhx5TA"/>
+<span class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded font-label-md text-label-md text-xs uppercase tracking-wider">New Harvest</span>
+</div>
+<div class="p-6 space-y-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-1">Rustic Brown</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Nutty flavor profile retaining the wholesome bran layer.</p>
+</div>
+<div class="space-y-2">
+<span class="font-label-md text-label-md text-on-surface">Available Package Sizes:</span>
+<div class="flex gap-2 flex-wrap" role="group" aria-label="Package size">
+<button type="button" data-weight="5kg" aria-pressed="true" class="weight-btn px-3 py-1.5 border border-primary text-primary font-label-md text-label-md rounded bg-surface transition-colors focus:ring-2 focus:ring-primary focus:outline-none">5kg</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/30">
+<div class="font-headline-sm text-headline-sm text-primary text-base">Bulk pricing on request</div>
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27d%20like%20to%20order%20Rustic%20Brown.%20Could%20you%20assist%20me%3F" data-order-link target="_blank" rel="noopener" class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm focus:ring-2 focus:ring-secondary focus:outline-none">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                            Order Now
+                        </a>
+</div>
+</div>
+</article>
+</div>
+
+<!-- Quality & Standards Section -->
+<section class="bg-surface-container rounded-xl p-8 text-center space-y-6 mt-12 border border-outline-variant/20 relative overflow-hidden">
+<div class="absolute inset-0 texture-overlay"></div>
+<h2 class="font-headline-md text-headline-md text-primary relative z-10">Uncompromising Quality</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 max-w-xl mx-auto">
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-3xl" data-icon="verified">verified</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface font-bold">NAFDAC Approved</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Certified safe and hygienic for consumption.</p>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-3xl" data-icon="agriculture">agriculture</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface font-bold">100% Local</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Sourced entirely from local Nigerian farms.</p>
+</div>
+</div>
+</section>
+
+</div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section id="story" class="scroll-mt-20 py-[80px] md:py-[160px] px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row items-center gap-12 md:gap-24">
+<div class="w-full md:w-1/2 relative">
+<div class="absolute -inset-4 bg-surface-container-low rounded-xl -z-10 transform -rotate-2"></div>
+<div class="relative rounded-xl overflow-hidden shadow-sm">
+<img class="w-full h-auto object-cover aspect-[4/5] md:aspect-square" alt="Founder Charles Ikechi Akano inspecting the harvest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY1hcrakfcQR1mPofvDMpgq5I0WxXkslyc8j_YaSXqHqayj08gMvwg4GCykVj0u0mu_XPAhbC9piI-mynNAm0j21GiP3aZvQ41KMHIJ2tHRBtFpsWeoeiATEi8P3-cSF06D3IGuq7dMDjZggW4z6vEbhUkaaGWgnuaMbxrcvcsIo2SE9REq_I_liC4M7EbauTyOIfBxVE2Vjd0TaDtd-ngvExd-S4-6PxJeOujiIqXiSsif_KAzrF6Kg"/>
+</div>
+</div>
+<div class="w-full md:w-1/2">
+<h2 class="font-headline-md text-headline-md text-primary mb-6 max-w-md">Cultivated by Hands that Know the Earth</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">
+                        Kanol Rice is more than a staple; it is the culmination of generations of agricultural wisdom, led by founder Charles Ikechi Akano. We partner closely with farming communities deeply rooted in the local terroir.
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">
+                        By combining traditional respect for the soil with modern, sustainable processing techniques, we ensure that every grain honors the land it came from — and we're now looking for partners to help carry that grain further.
+                    </p>
+<a href="#contact" class="border-b-2 border-primary text-primary pb-1 font-label-md text-label-md hover:text-secondary hover:border-secondary transition-colors inline-flex items-center gap-2">
+                        Read Our Story
+                    </a>
+</div>
+</div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="contact" class="scroll-mt-20 mb-[80px] md:mb-[120px] px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="bg-primary-container rounded-2xl p-12 md:p-24 text-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-on-primary-container mb-6">Let's Grow This Together</h2>
+<p class="font-body-lg text-body-lg text-on-primary-container/80 mb-10">
+                        Whether you're stocking shelves, sourcing wholesale, or investing in Nigerian agriculture — we'd like to talk. Bring the heritage of Kanol to your market.
+                    </p>
+<div class="flex gap-4 flex-wrap justify-center">
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27m%20interested%20in%20becoming%20a%20distributor%2Fpartner.%20Could%20we%20discuss%20details%3F" target="_blank" rel="noopener" class="bg-primary text-on-primary px-8 py-4 rounded font-label-md text-label-md hover:shadow-[0_4px_16px_rgba(1,45,29,0.25)] transition-shadow inline-block">
+                        Become a Partner
+                    </a>
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27d%20like%20to%20place%20an%20order.%20Could%20you%20assist%20me%3F" target="_blank" rel="noopener" class="border border-primary text-primary px-8 py-4 rounded font-label-md text-label-md hover:bg-primary/10 transition-colors inline-block">
+                        Order Now
+                    </a>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-tertiary-container">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-16 w-full max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1 flex flex-col items-start gap-4">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">
+                    Kanol Rice
+                </span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container mt-2">
+                    Nature's Finest Grain, Rooted in Heritage.
+                </p>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-col md:flex-row gap-12 md:gap-24 justify-end">
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary dark:text-secondary-fixed font-bold">Support</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary dark:text-secondary-fixed font-bold">Partnership</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#products">Our Products</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#contact">Get in Touch</a>
+</div>
+</div>
+<div class="col-span-1 md:col-span-1 flex items-end justify-start md:justify-end mt-8 md:mt-0">
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container text-sm">
+                    © 2026 Kanol Rice Farm Limited. Founded by Charles Ikechi Akano.
+                </p>
+</div>
+</div>
+</footer>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('menu-toggle');
+    var closeBtn = document.getElementById('menu-close');
+    var menu = document.getElementById('mobile-menu');
+    var backdrop = document.getElementById('menu-backdrop');
+
+    function openMenu(){
+      menu.classList.add('open');
+      backdrop.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    function closeMenu(){
+      menu.classList.remove('open');
+      backdrop.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    toggle.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    backdrop.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-nav-link').forEach(function(link){
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Weight/size selector: keep selection in sync with the Order Now WhatsApp link
+    function updateOrderLink(article){
+      var productName = article.getAttribute('data-product');
+      var selectedBtn = article.querySelector('.weight-btn[aria-pressed="true"]');
+      var weight = selectedBtn ? selectedBtn.getAttribute('data-weight') : '';
+      var orderLink = article.querySelector('[data-order-link]');
+      if (!orderLink || !productName) return;
+      var message = 'Hello Kanol Rice Farm Limited, I\'d like to order ' + productName +
+        (weight ? ' (' + weight + ')' : '') + '. Could you assist me?';
+      orderLink.setAttribute('href', 'https://wa.me/2348153302590?text=' + encodeURIComponent(message));
+    }
+
+    document.querySelectorAll('article[data-product]').forEach(function(article){
+      updateOrderLink(article); // set initial link to match the default-selected size
+      article.querySelectorAll('.weight-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var group = btn.closest('[role="group"]');
+          group.querySelectorAll('.weight-btn').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+          btn.setAttribute('aria-pressed','true');
+          updateOrderLink(article);
+        });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
