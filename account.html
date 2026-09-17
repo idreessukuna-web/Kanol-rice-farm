@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Account - Kanol Rice Farm Limited</title>
+<meta name="description" content="Sign in or create an account with Kanol Rice Farm to save your details for faster ordering."/>
+<link rel="canonical" href="https://www.kanolrice.com/account.html"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<meta name="theme-color" content="#012d1d"/>
+
+<!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.kanolrice.com/account.html"/>
+<meta property="og:title" content="My Account - Kanol Rice Farm"/>
+<meta property="og:description" content="A family farm ready for its next chapter. Sustainably grown, carefully processed Nigerian rice — looking for distribution and retail partners."/>
+<meta property="og:image" content="https://www.kanolrice.com/kanol-rice-og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:site_name" content="Kanol Rice Farm"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="My Account - Kanol Rice Farm"/>
+<meta name="twitter:description" content="A family farm ready for its next chapter. Sustainably grown, carefully processed Nigerian rice — looking for distribution and retail partners."/>
+<meta name="twitter:image" content="https://www.kanolrice.com/kanol-rice-og-image.png"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#a8a6a1",
+                    "outline": "#717973",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f3f0f0",
+                    "primary": "#012d1d",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary-fixed-variant": "#474743",
+                    "secondary": "#735c00",
+                    "on-surface-variant": "#414844",
+                    "tertiary-fixed-dim": "#c9c6c1",
+                    "on-primary-container": "#86af99",
+                    "inverse-primary": "#a5d0b9",
+                    "surface-variant": "#e4e2e1",
+                    "tertiary-fixed": "#e5e2dc",
+                    "on-primary-fixed": "#002114",
+                    "primary-fixed-dim": "#a5d0b9",
+                    "background": "#fcf9f8",
+                    "secondary-container": "#fed65b",
+                    "on-secondary-fixed": "#241a00",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#574500",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-secondary-container": "#745c00",
+                    "on-primary-fixed-variant": "#274e3d",
+                    "on-tertiary-fixed": "#1c1c18",
+                    "surface-container-high": "#eae7e7",
+                    "surface-dim": "#dcd9d9",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#3c3c38",
+                    "on-surface": "#1b1c1c",
+                    "surface-bright": "#fcf9f8",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c1c8c2",
+                    "surface-tint": "#3f6653",
+                    "tertiary": "#262623",
+                    "secondary-fixed": "#ffe088",
+                    "primary-fixed": "#c1ecd4",
+                    "surface-container": "#f0eded",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#1b4332",
+                    "inverse-surface": "#303030",
+                    "error": "#ba1a1a",
+                    "surface": "#fcf9f8",
+                    "on-background": "#1b1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "headline-md": [ "\"Source Serif 4\"" ],
+                    "display-lg": [ "\"Source Serif 4\"" ],
+                    "label-md": [ "Hanken Grotesk" ],
+                    "body-md": [ "Hanken Grotesk" ],
+                    "body-lg": [ "Hanken Grotesk" ],
+                    "display-lg-mobile": [ "\"Source Serif 4\"" ],
+                    "headline-sm": [ "\"Source Serif 4\"" ]
+            },
+            "fontSize": {
+                    "headline-md": [ "32px", { "lineHeight": "40px", "fontWeight": "600" } ],
+                    "display-lg": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700" } ],
+                    "label-md": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" } ],
+                    "body-md": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ],
+                    "body-lg": [ "18px", { "lineHeight": "28px", "fontWeight": "400" } ],
+                    "display-lg-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700" } ],
+                    "headline-sm": [ "24px", { "lineHeight": "32px", "fontWeight": "600" } ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-shadow-subtle {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .texture-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        /* Mobile menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        #mobile-menu.open { transform: translateX(0); }
+        #menu-backdrop {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #menu-backdrop.open { opacity: 1; pointer-events: auto; }
+        .weight-btn[aria-pressed="true"] {
+            border-color: #012d1d;
+            color: #012d1d;
+            background: #fcf9f8;
+        }
+        html { scroll-behavior: smooth; }
+
+        /* Respect reduced motion: disable smooth scroll and non-essential transitions */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Skip to content link */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            background: #012d1d;
+            color: #fff;
+            padding: 12px 20px;
+            z-index: 200;
+            border-radius: 0 0 4px 0;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .skip-link:focus {
+            left: 0;
+            outline: 3px solid #C89B3C;
+            outline-offset: -3px;
+        }
+
+        /* Body scroll lock when mobile menu / search / etc is open */
+        body.no-scroll { overflow: hidden; }
+
+        /* Reveal-on-scroll animations (opt-in via .reveal class) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .theme-toggle .icon-dark { display: none; }
+        html.dark .theme-toggle .icon-light { display: none; }
+        html.dark .theme-toggle .icon-dark { display: inline-flex; }
+
+        /* Floating back-to-top button */
+        #back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 80;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(12px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        /* Floating WhatsApp contact button */
+        #floating-whatsapp {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 80;
+        }
+        @media (max-width: 480px) {
+            #back-to-top { bottom: 88px; right: 16px; }
+            #floating-whatsapp { bottom: 16px; left: 16px; }
+        }
+
+        /* Search overlay */
+        #search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            display: none;
+        }
+        #search-overlay.open { display: block; }
+        #search-overlay .search-backdrop {
+            position: absolute; inset: 0;
+            background: rgba(1,45,29,0.6);
+        }
+        mark.search-highlight {
+            background: #E4C378;
+            color: #012d1d;
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        /* FAQ accordion */
+        .faq-answer {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease;
+        }
+        .faq-item[data-open="true"] .faq-answer {
+            grid-template-rows: 1fr;
+        }
+        .faq-answer-inner { overflow: hidden; }
+        .faq-chevron { transition: transform 0.25s ease; }
+        .faq-item[data-open="true"] .faq-chevron { transform: rotate(180deg); }
+
+        /* Cookie banner */
+        #cookie-banner {
+            position: fixed;
+            left: 16px; right: 16px; bottom: 16px;
+            z-index: 90;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        /* Print styles */
+        @media print {
+            header, #mobile-menu, #menu-backdrop, #back-to-top, #floating-whatsapp,
+            #search-overlay, #cookie-banner, #scroll-progress, .skip-link,
+            #search-trigger, .theme-toggle, button, .no-print {
+                display: none !important;
+            }
+            body { background: #fff !important; color: #000 !important; }
+            a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+            .bg-primary, .bg-secondary { background: none !important; }
+        }
+    </style>
+<style id="dark-mode-overrides">
+        /* Dark mode: intentional palette, not a blind invert */
+        html.dark body { background:#0E1512; color:#EDEAE2; }
+        html.dark header { background:#0B100D; border-bottom:1px solid rgba(255,255,255,0.06); }
+        html.dark #mobile-menu { background:#0B100D; }
+        html.dark .bg-surface-container-lowest { background:#1A241F; border-color: rgba(255,255,255,0.08); }
+        html.dark .bg-surface-container-low { background:#1A241F; border-color: rgba(255,255,255,0.08); }
+        html.dark .bg-surface-container { background:#202B24; border-color: rgba(255,255,255,0.08); }
+        html.dark .bg-background { background:#0E1512; }
+        html.dark .text-on-background { color:#EDEAE2; }
+        html.dark .text-primary { color:#9FCBAE; }
+        html.dark .text-on-surface { color:#EDEAE2; }
+        html.dark .text-on-surface-variant { color:#B7BDB6; }
+        html.dark .border-primary\/10 { border-color: rgba(159,203,174,0.16); }
+        html.dark .border-outline-variant { border-color:#33403A; }
+        html.dark .border-outline\/10 { border-color: rgba(183,189,182,0.12); }
+        html.dark footer { background:#0B100D; }
+        html.dark article.bg-background { background:#1A241F; border-color: rgba(255,255,255,0.1) !important; }
+        html.dark #search-overlay .bg-background { background:#141C18; }
+        html.dark #cookie-banner { background:#141C18; color:#EDEAE2; }
+        html.dark .weight-btn[aria-pressed="true"] {
+            border-color:#9FCBAE; color:#9FCBAE; background:#141C18;
+        }
+    </style>
+<script>
+  // Prevent dark-mode flash: apply saved/system theme before first paint
+  (function(){
+    try {
+      var stored = localStorage.getItem('kanol-theme');
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    } catch(e) { /* localStorage unavailable — default to light, no crash */ }
+  })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Kanol Rice Farm Limited",
+  "url": "https://www.kanolrice.com/",
+  "logo": "https://www.kanolrice.com/kanol-rice-og-image.png",
+  "founder": {
+    "@type": "Person",
+    "name": "Charles Ikechi Akano"
+  },
+  "description": "A Nigerian rice farm growing, processing, and distributing premium rice varieties, seeking distribution and retail partners."
+}
+</script>
+<meta name="robots" content="noindex"/>
+</head><body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden">
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Scroll progress indicator -->
+<div id="scroll-progress" class="fixed top-0 left-0 h-[3px] bg-secondary z-[100]" style="width:0%;" aria-hidden="true"></div>
+
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-background dark:bg-on-primary-fixed border-none">
+<nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<a class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed tracking-tight" href="index.html">
+                Kanol Rice
+            </a>
+<div class="hidden md:flex items-center space-x-8 font-label-md text-label-md">
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="index.html">Home</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="index.html#products">Products</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="gallery.html">Gallery</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="index.html#story">About Us</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="index.html#why">Sustainability</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="index.html#faq">FAQ</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors" href="index.html#contact">Contact Us</a>
+</div>
+<div class="flex items-center gap-1">
+<button id="search-trigger" class="p-2 text-primary dark:text-primary-fixed hover:text-secondary transition-colors rounded" aria-label="Search the site" aria-haspopup="dialog" aria-controls="search-overlay">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button id="theme-toggle" class="theme-toggle text-primary dark:text-primary-fixed hover:text-secondary transition-colors rounded" aria-label="Toggle dark mode" aria-pressed="false">
+<span class="material-symbols-outlined icon-light" data-icon="dark_mode">dark_mode</span>
+<span class="material-symbols-outlined icon-dark" data-icon="light_mode">light_mode</span>
+</button>
+<a href="account.html" class="p-2 text-secondary dark:text-secondary-fixed transition-colors rounded" aria-label="My account" aria-current="page">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</div>
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27m%20interested%20in%20becoming%20a%20distributor%2Fpartner.%20Could%20we%20discuss%20details%3F" target="_blank" rel="noopener" class="bg-primary text-on-primary px-6 py-2 rounded font-label-md text-label-md hover:shadow-[0_4px_12px_rgba(1,45,29,0.15)] transition-shadow hidden md:block">
+                Partner With Us
+            </a>
+<button id="menu-toggle" class="md:hidden text-primary p-2" aria-label="Open Menu" aria-expanded="false" aria-controls="mobile-menu">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</nav>
+</header>
+
+<!-- Mobile Menu Backdrop -->
+<div id="menu-backdrop" class="fixed inset-0 bg-on-primary-fixed/50 z-[60] md:hidden"></div>
+
+<!-- Mobile Slide-out Menu -->
+<aside id="mobile-menu" class="fixed top-0 right-0 h-full w-[78%] max-w-xs bg-background dark:bg-on-primary-fixed z-[70] md:hidden shadow-xl flex flex-col">
+<div class="flex justify-between items-center px-margin-mobile py-4 border-b border-outline-variant/20">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Menu</span>
+<button id="menu-close" class="text-primary p-2" aria-label="Close Menu">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<nav class="flex flex-col px-margin-mobile py-6 gap-1 font-label-md text-label-md">
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="index.html#products">Products</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="gallery.html">Gallery</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="index.html#story">About Us</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="index.html#why">Sustainability</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="index.html#faq">FAQ</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-on-surface-variant dark:text-on-tertiary-container hover:text-primary transition-colors" href="index.html#contact">Contact Us</a>
+<a class="mobile-nav-link py-3 border-b border-outline-variant/10 text-primary dark:text-secondary-fixed font-bold flex items-center gap-2" href="account.html" aria-current="page">
+<span class="material-symbols-outlined text-lg" data-icon="person">person</span>
+My Account
+</a>
+<button id="mobile-theme-toggle" class="flex items-center justify-between py-3 text-on-surface-variant dark:text-on-tertiary-container w-full text-left" aria-pressed="false">
+<span>Dark Mode</span>
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</button>
+</nav>
+<div class="mt-auto px-margin-mobile py-6 border-t border-outline-variant/20">
+<a href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%27m%20interested%20in%20becoming%20a%20distributor%2Fpartner.%20Could%20we%20discuss%20details%3F" target="_blank" rel="noopener" class="mobile-nav-link block text-center bg-primary text-on-primary px-6 py-3 rounded font-label-md text-label-md">Partner With Us</a>
+</div>
+</aside>
+
+<main id="main-content">
+
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 md:py-20">
+<div class="max-w-md mx-auto">
+
+<!-- ============ LOGGED-OUT STATE: SIGN IN / SIGN UP ============ -->
+<div id="auth-section">
+
+<div class="text-center mb-8">
+<h1 class="font-headline-md text-headline-md text-primary mb-2">My Account</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Sign in to save your details for faster ordering.</p>
+</div>
+
+<!-- Tab toggle: Sign In / Sign Up -->
+<div class="flex border border-outline-variant/40 rounded-lg overflow-hidden mb-6" role="tablist" aria-label="Account access">
+<button type="button" id="tab-signin" class="auth-tab flex-1 py-3 font-label-md text-label-md bg-primary text-on-primary" role="tab" aria-selected="true" aria-controls="signin-panel">Sign In</button>
+<button type="button" id="tab-signup" class="auth-tab flex-1 py-3 font-label-md text-label-md bg-surface-container-low text-on-surface-variant" role="tab" aria-selected="false" aria-controls="signup-panel">Sign Up</button>
+</div>
+
+<!-- Method toggle: Password / Magic Link -->
+<div class="flex items-center justify-center gap-2 mb-6 font-label-md text-label-md">
+<button type="button" id="method-password" class="auth-method px-3 py-1.5 rounded-full bg-primary text-on-primary" aria-pressed="true">Password</button>
+<button type="button" id="method-magic" class="auth-method px-3 py-1.5 rounded-full text-on-surface-variant border border-outline-variant/40" aria-pressed="false">Magic Link</button>
+</div>
+
+<!-- SIGN IN PANEL -->
+<form id="signin-panel" role="tabpanel" aria-labelledby="tab-signin" novalidate>
+<div class="space-y-4">
+<div>
+<label for="signin-email" class="block font-label-md text-label-md text-on-surface mb-1.5">Email</label>
+<input type="email" id="signin-email" name="email" required autocomplete="email" class="w-full px-4 py-2.5 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+</div>
+<div id="signin-password-field">
+<div class="flex items-center justify-between mb-1.5">
+<label for="signin-password" class="block font-label-md text-label-md text-on-surface">Password</label>
+<button type="button" id="forgot-password-trigger" class="text-sm font-label-md text-secondary hover:underline">Forgot password?</button>
+</div>
+<div class="relative">
+<input type="password" id="signin-password" name="password" autocomplete="current-password" class="w-full px-4 py-2.5 pr-11 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+<button type="button" class="password-toggle absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-on-surface-variant hover:text-primary" aria-label="Show password" aria-pressed="false" data-target="signin-password">
+<span class="material-symbols-outlined text-xl" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<button type="submit" id="signin-submit" class="w-full bg-primary text-on-primary py-3 rounded font-label-md text-label-md hover:bg-primary-container transition-colors">
+<span class="btn-label">Sign In</span>
+</button>
+<p id="signin-status" class="text-sm font-body-md text-center min-h-[20px]" role="status" aria-live="polite"></p>
+</div>
+</form>
+
+<!-- FORGOT PASSWORD PANEL (hidden until "Forgot password?" is clicked) -->
+<div id="forgot-password-panel" class="hidden mt-4 p-5 rounded-lg border border-outline-variant/40 bg-surface-container-low">
+<div class="flex items-center justify-between mb-3">
+<h2 class="font-label-md text-label-md text-primary font-bold">Reset your password</h2>
+<button type="button" id="forgot-password-close" aria-label="Close" class="p-1 text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+<p class="text-sm font-body-md text-on-surface-variant mb-4">Enter your email and we'll send you a link to reset your password.</p>
+<form id="forgot-password-form" novalidate>
+<div class="flex gap-2">
+<label for="forgot-password-email" class="sr-only">Email</label>
+<input type="email" id="forgot-password-email" name="email" required autocomplete="email" placeholder="you@example.com" class="flex-1 min-w-0 px-4 py-2.5 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+<button type="submit" id="forgot-password-submit" class="bg-primary text-on-primary px-5 py-2.5 rounded font-label-md text-label-md hover:bg-primary-container transition-colors shrink-0">
+<span class="btn-label">Send Link</span>
+</button>
+</div>
+<p id="forgot-password-status" class="text-sm font-body-md mt-2" role="status" aria-live="polite"></p>
+</form>
+</div>
+
+<!-- RESET PASSWORD PANEL (shown only when arriving via the emailed reset link) -->
+<div id="reset-password-panel" class="hidden mt-4 p-5 rounded-lg border border-outline-variant/40 bg-surface-container-low">
+<h2 class="font-label-md text-label-md text-primary font-bold mb-3">Choose a new password</h2>
+<form id="reset-password-form" novalidate>
+<div class="space-y-3">
+<div class="relative">
+<label for="new-password" class="sr-only">New password</label>
+<input type="password" id="new-password" name="new-password" required minlength="8" autocomplete="new-password" placeholder="New password (min. 8 characters)" class="w-full px-4 py-2.5 pr-11 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+<button type="button" class="password-toggle absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-on-surface-variant hover:text-primary" aria-label="Show password" aria-pressed="false" data-target="new-password">
+<span class="material-symbols-outlined text-xl" data-icon="visibility">visibility</span>
+</button>
+</div>
+<button type="submit" id="reset-password-submit" class="w-full bg-primary text-on-primary py-2.5 rounded font-label-md text-label-md hover:bg-primary-container transition-colors">
+<span class="btn-label">Update Password</span>
+</button>
+<p id="reset-password-status" class="text-sm font-body-md text-center min-h-[20px]" role="status" aria-live="polite"></p>
+</div>
+</form>
+</div>
+
+<!-- SIGN UP PANEL -->
+<form id="signup-panel" role="tabpanel" aria-labelledby="tab-signup" novalidate class="hidden">
+<div class="space-y-4">
+<div>
+<label for="signup-name" class="block font-label-md text-label-md text-on-surface mb-1.5">Full Name</label>
+<input type="text" id="signup-name" name="name" required autocomplete="name" class="w-full px-4 py-2.5 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+</div>
+<div>
+<label for="signup-email" class="block font-label-md text-label-md text-on-surface mb-1.5">Email</label>
+<input type="email" id="signup-email" name="email" required autocomplete="email" class="w-full px-4 py-2.5 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+</div>
+<div id="signup-password-field">
+<label for="signup-password" class="block font-label-md text-label-md text-on-surface mb-1.5">Password</label>
+<div class="relative">
+<input type="password" id="signup-password" name="password" autocomplete="new-password" minlength="8" class="w-full px-4 py-2.5 pr-11 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+<button type="button" class="password-toggle absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-on-surface-variant hover:text-primary" aria-label="Show password" aria-pressed="false" data-target="signup-password">
+<span class="material-symbols-outlined text-xl" data-icon="visibility">visibility</span>
+</button>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">At least 8 characters.</p>
+</div>
+<button type="submit" id="signup-submit" class="w-full bg-primary text-on-primary py-3 rounded font-label-md text-label-md hover:bg-primary-container transition-colors">
+<span class="btn-label">Create Account</span>
+</button>
+<p id="signup-status" class="text-sm font-body-md text-center min-h-[20px]" role="status" aria-live="polite"></p>
+</div>
+</form>
+
+</div>
+
+<!-- ============ LOGGED-IN STATE: SAVED DETAILS ============ -->
+<div id="account-section" class="hidden">
+
+<div class="flex items-center justify-between mb-8">
+<div>
+<h1 class="font-headline-md text-headline-md text-primary mb-1">My Account</h1>
+<p id="account-email-display" class="font-body-md text-body-md text-on-surface-variant"></p>
+</div>
+<button type="button" id="signout-btn" class="text-sm font-label-md text-label-md text-on-surface-variant hover:text-primary border border-outline-variant/40 px-4 py-2 rounded transition-colors">Sign Out</button>
+</div>
+
+<form id="profile-form" novalidate>
+<div class="space-y-4">
+<div>
+<label for="profile-name" class="block font-label-md text-label-md text-on-surface mb-1.5">Full Name</label>
+<input type="text" id="profile-name" name="full_name" autocomplete="name" class="w-full px-4 py-2.5 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+</div>
+<div>
+<label for="profile-phone" class="block font-label-md text-label-md text-on-surface mb-1.5">Phone Number</label>
+<input type="tel" id="profile-phone" name="phone" autocomplete="tel" class="w-full px-4 py-2.5 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary"/>
+</div>
+<div>
+<label for="profile-address" class="block font-label-md text-label-md text-on-surface mb-1.5">Delivery Address</label>
+<textarea id="profile-address" name="delivery_address" rows="3" autocomplete="street-address" class="w-full px-4 py-2.5 rounded border border-outline-variant/40 bg-surface text-on-background font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary resize-none"></textarea>
+</div>
+<button type="submit" id="profile-submit" class="w-full bg-primary text-on-primary py-3 rounded font-label-md text-label-md hover:bg-primary-container transition-colors">
+<span class="btn-label">Save Details</span>
+</button>
+<p id="profile-status" class="text-sm font-body-md text-center min-h-[20px]" role="status" aria-live="polite"></p>
+</div>
+</form>
+
+<div class="mt-10 pt-8 border-t border-outline-variant/20 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Ready to order? Your saved details will be included automatically.</p>
+<a href="index.html#products" class="inline-flex items-center gap-2 text-primary font-label-md text-label-md hover:text-secondary transition-colors">
+Browse Products
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+
+</div>
+
+</div>
+</section>
+
+</main>
+
+<!-- Floating WhatsApp contact -->
+<a id="floating-whatsapp" href="https://wa.me/2348153302590?text=Hello%20Kanol%20Rice%20Farm%20Limited%2C%20I%20have%20a%20question." target="_blank" rel="noopener" class="flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg hover:scale-105 transition-transform" aria-label="Chat with us on WhatsApp">
+<span class="material-symbols-outlined text-3xl" data-icon="chat">chat</span>
+</a>
+
+<!-- Back to top -->
+<button id="back-to-top" class="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-on-primary shadow-lg hover:bg-primary-container transition-colors" aria-label="Back to top">
+<span class="material-symbols-outlined" data-icon="arrow_upward">arrow_upward</span>
+</button>
+
+<!-- Search overlay -->
+<div id="search-overlay" role="dialog" aria-modal="true" aria-label="Search the site">
+<div class="search-backdrop" data-search-close></div>
+<div class="relative z-10 max-w-xl mx-auto mt-24 px-4">
+<div class="bg-background dark:bg-on-primary-fixed rounded-xl shadow-2xl overflow-hidden">
+<div class="flex items-center gap-3 px-5 py-4 border-b border-outline-variant/20">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+<input type="text" id="search-input" placeholder="Search products, FAQ, story..." class="flex-1 bg-transparent outline-none font-body-md text-body-md text-on-background placeholder:text-on-surface-variant" autocomplete="off"/>
+<button data-search-close aria-label="Close search" class="p-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div id="search-results" class="max-h-[50vh] overflow-y-auto px-2 py-2">
+<p id="search-empty-state" class="px-4 py-8 text-center text-on-surface-variant font-body-md text-body-md">Start typing to search the site.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Cookie banner -->
+<div id="cookie-banner" class="hidden bg-surface-container-lowest border border-outline-variant/30 rounded-xl shadow-lg p-5" role="region" aria-label="Cookie notice">
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">This site uses basic cookies to remember your preferences, like dark mode. No tracking or advertising cookies are used.</p>
+<div class="flex gap-3 justify-end">
+<button id="cookie-dismiss" class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors px-3 py-2">Dismiss</button>
+<button id="cookie-accept" class="bg-primary text-on-primary font-label-md text-label-md px-5 py-2 rounded hover:bg-primary-container transition-colors">Got it</button>
+</div>
+</div>
+
+
+<footer class="bg-surface-container dark:bg-tertiary-container">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-16 w-full max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1 flex flex-col items-start gap-4">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">
+                    Kanol Rice
+                </span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container mt-2">
+                    Nature's Finest Grain, Rooted in Heritage.
+                </p>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-col md:flex-row gap-12 md:gap-24 justify-end">
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary dark:text-secondary-fixed font-bold">Support</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary dark:text-secondary-fixed font-bold">Partnership</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="index.html#products">Our Products</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded" href="index.html#contact">Get in Touch</a>
+</div>
+</div>
+<div class="col-span-1 md:col-span-1 flex items-end justify-start md:justify-end mt-8 md:mt-0">
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-on-tertiary-container text-sm">
+                    © 2026 Kanol Rice Farm Limited. Founded by Charles Ikechi Akano.
+                </p>
+</div>
+</div>
+</footer><script>
+  (function(){
+    var toggle = document.getElementById('menu-toggle');
+    var closeBtn = document.getElementById('menu-close');
+    var menu = document.getElementById('mobile-menu');
+    var backdrop = document.getElementById('menu-backdrop');
+    if (!toggle || !menu || !backdrop) return; // defensive: don't crash if markup is ever edited
+
+    function openMenu(){
+      menu.classList.add('open');
+      backdrop.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('no-scroll');
+      if (closeBtn) closeBtn.focus();
+    }
+    function closeMenu(){
+      menu.classList.remove('open');
+      backdrop.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+    }
+    toggle.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    backdrop.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-nav-link').forEach(function(link){
+      link.addEventListener('click', closeMenu);
+    });
+    // Escape closes the mobile menu
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
+    });
+
+    // Weight/size selector: keep selection in sync with the Order Now WhatsApp link
+    function updateOrderLink(article){
+      var productName = article.getAttribute('data-product');
+      var selectedBtn = article.querySelector('.weight-btn[aria-pressed="true"]');
+      var weight = selectedBtn ? selectedBtn.getAttribute('data-weight') : '';
+      var orderLink = article.querySelector('[data-order-link]');
+      if (!orderLink || !productName) return;
+      var message = 'Hello Kanol Rice Farm Limited, I\'d like to order ' + productName +
+        (weight ? ' (' + weight + ')' : '') + '. Could you assist me?';
+      orderLink.setAttribute('href', 'https://wa.me/2348153302590?text=' + encodeURIComponent(message));
+    }
+
+    document.querySelectorAll('article[data-product]').forEach(function(article){
+      updateOrderLink(article); // set initial link to match the default-selected size
+      article.querySelectorAll('.weight-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var group = btn.closest('[role="group"]');
+          group.querySelectorAll('.weight-btn').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+          btn.setAttribute('aria-pressed','true');
+          updateOrderLink(article);
+        });
+      });
+    });
+  })();
+</script>
+<script>
+  // Theme toggle (dark/light), persisted to localStorage, respects system preference on first visit
+  (function(){
+    var STORAGE_KEY = 'kanol-theme';
+    var toggleBtns = [document.getElementById('theme-toggle'), document.getElementById('mobile-theme-toggle')].filter(Boolean);
+    if (toggleBtns.length === 0) return;
+
+    function getStored(){
+      try { return localStorage.getItem(STORAGE_KEY); } catch(e){ return null; }
+    }
+    function setStored(val){
+      try { localStorage.setItem(STORAGE_KEY, val); } catch(e){ /* storage unavailable, theme just won't persist */ }
+    }
+    function applyTheme(theme){
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      toggleBtns.forEach(function(btn){ btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false'); });
+    }
+
+    var current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    applyTheme(current);
+
+    toggleBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        current = current === 'dark' ? 'light' : 'dark';
+        applyTheme(current);
+        setStored(current);
+      });
+    });
+
+    // If user hasn't chosen explicitly, follow system changes live
+    if (!getStored() && window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e){
+        if (getStored()) return; // user has since made an explicit choice
+        current = e.matches ? 'dark' : 'light';
+        applyTheme(current);
+      });
+    }
+  })();
+</script>
+<script>
+  // Scroll progress bar + back-to-top button
+  (function(){
+    var progressBar = document.getElementById('scroll-progress');
+    var backToTop = document.getElementById('back-to-top');
+
+    function onScroll(){
+      var doc = document.documentElement;
+      var scrollTop = doc.scrollTop || document.body.scrollTop;
+      var scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+      var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (backToTop) backToTop.classList.toggle('visible', scrollTop > 480);
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (backToTop) {
+      backToTop.addEventListener('click', function(){
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
+    }
+  })();
+</script>
+<script>
+  // Reveal-on-scroll animations (opt-in, respects reduced motion)
+  (function(){
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var targets = document.querySelectorAll('.reveal');
+    if (reduceMotion || targets.length === 0 || !('IntersectionObserver' in window)) {
+      targets.forEach(function(el){ el.classList.add('revealed'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    targets.forEach(function(el){ observer.observe(el); });
+  })();
+</script>
+<script>
+  // Cookie / privacy notice — local-preference only, no tracking cookies set
+  (function(){
+    var STORAGE_KEY = 'kanol-cookie-notice';
+    var banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+    var accepted;
+    try { accepted = localStorage.getItem(STORAGE_KEY); } catch(e){ accepted = null; }
+    if (!accepted) {
+      banner.classList.remove('hidden');
+    }
+    function dismiss(store){
+      banner.classList.add('hidden');
+      if (store) {
+        try { localStorage.setItem(STORAGE_KEY, 'acknowledged'); } catch(e){ /* ignore */ }
+      }
+    }
+    var acceptBtn = document.getElementById('cookie-accept');
+    var dismissBtn = document.getElementById('cookie-dismiss');
+    if (acceptBtn) acceptBtn.addEventListener('click', function(){ dismiss(true); });
+    if (dismissBtn) dismissBtn.addEventListener('click', function(){ dismiss(false); });
+  })();
+</script>
+<script>
+  // Frontend-only site search (static content index), adapted for the account page —
+  // all results link back to index.html sections since this page has no site content of its own.
+  (function(){
+    var trigger = document.getElementById('search-trigger');
+    var overlay = document.getElementById('search-overlay');
+    var input = document.getElementById('search-input');
+    var resultsBox = document.getElementById('search-results');
+    var emptyState = document.getElementById('search-empty-state');
+    if (!trigger || !overlay || !input || !resultsBox) return;
+
+    var index = [
+      { title: 'Premium Parboiled Rice', text: 'Firm, separate long grains ideal for jollof or fried rice. Available 5kg, 10kg, 50kg.', href: 'index.html#products' },
+      { title: 'Authentic Ofada Rice', text: 'Locally grown, unpolished short-grain rice with robust aroma. Available 1kg, 5kg.', href: 'index.html#products' },
+      { title: 'Classic White Rice', text: 'Soft, slightly sticky texture for everyday meals. Available 5kg, 10kg.', href: 'index.html#products' },
+      { title: 'Rustic Brown Rice', text: 'Nutty flavor, retains the wholesome bran layer. Available 5kg.', href: 'index.html#products' },
+      { title: 'Why Partner With Kanol', text: 'Unmatched purity, nutrient rich, sustainable roots and regenerative farming practices.', href: 'index.html#why' },
+      { title: 'Quality & Standards', text: 'NAFDAC approved and 100% sourced from local Nigerian farms.', href: 'index.html#products' },
+      { title: 'Our Story', text: 'Founded by Charles Ikechi Akano, cultivated by hands that know the earth.', href: 'index.html#story' },
+      { title: 'FAQ', text: 'Frequently asked questions about NAFDAC approval, sourcing, package sizes, and ordering.', href: 'index.html#faq' },
+      { title: 'Contact / Partnership', text: 'Become a partner or place an order via WhatsApp.', href: 'index.html#contact' },
+      { title: 'Gallery', text: 'Photos and videos of raw paddy rice, packaging, and bagged product.', href: 'gallery.html' }
+    ];
+
+    function openSearch(){
+      overlay.classList.add('open');
+      document.body.classList.add('no-scroll');
+      input.value = '';
+      renderResults('');
+      setTimeout(function(){ input.focus(); }, 0);
+    }
+    function closeSearch(){
+      overlay.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+    }
+    function highlight(text, query){
+      if (!query) return text;
+      var escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return text.replace(new RegExp('(' + escaped + ')', 'ig'), '<mark class="search-highlight">$1</mark>');
+    }
+    function renderResults(query){
+      var q = query.trim().toLowerCase();
+      if (!q) {
+        resultsBox.innerHTML = '';
+        resultsBox.appendChild(emptyState);
+        emptyState.textContent = 'Start typing to search the site.';
+        return;
+      }
+      var matches = index.filter(function(item){
+        return item.title.toLowerCase().indexOf(q) !== -1 || item.text.toLowerCase().indexOf(q) !== -1;
+      });
+      if (matches.length === 0) {
+        resultsBox.innerHTML = '<p class="px-4 py-8 text-center text-on-surface-variant font-body-md text-body-md">No results for "' + query.replace(/</g,'&lt;') + '".</p>';
+        return;
+      }
+      resultsBox.innerHTML = matches.map(function(item){
+        return '<a href="' + item.href + '" class="search-result-link block px-4 py-3 rounded hover:bg-surface-container transition-colors">' +
+          '<div class="font-label-md text-label-md text-primary">' + highlight(item.title, query) + '</div>' +
+          '<div class="font-body-md text-body-md text-on-surface-variant text-sm mt-0.5">' + highlight(item.text, query) + '</div>' +
+          '</a>';
+      }).join('');
+      resultsBox.querySelectorAll('.search-result-link').forEach(function(link){
+        link.addEventListener('click', closeSearch);
+      });
+    }
+
+    trigger.addEventListener('click', openSearch);
+    overlay.querySelectorAll('[data-search-close]').forEach(function(el){
+      el.addEventListener('click', closeSearch);
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeSearch();
+      if (e.key === '/' && !overlay.classList.contains('open')) {
+        var tag = document.activeElement && document.activeElement.tagName;
+        if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+          e.preventDefault();
+          openSearch();
+        }
+      }
+    });
+    input.addEventListener('input', function(){ renderResults(input.value); });
+  })();
+</script>
+
+<script>
+  // ============================================================
+  // Supabase client setup
+  // The anon key is safe to expose in frontend code — it has no
+  // power beyond what the RLS policies (set up in the SQL scripts)
+  // explicitly allow. Real access control lives in the database,
+  // not in this key being secret.
+  // ============================================================
+  var SUPABASE_URL = 'https://xqwjrwmjoabajolgigrq.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhxd2pyd21qb2FiYWpvbGdpZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1ODU5MzQsImV4cCI6MjEwNTE2MTkzNH0.Y0BuBkMwTLawWYhGkjVazWeeKbkJb4IhBSVLOvL-zug';
+
+  var supabaseClient = null;
+  (function initSupabase(){
+    if (window.supabase && window.supabase.createClient) {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } else {
+      console.error('Supabase client library failed to load.');
+    }
+  })();
+</script>
+
+<script>
+  (function(){
+    if (!supabaseClient) return;
+
+    // ---------- Element references (all guarded — page must not crash if markup changes) ----------
+    var authSection = document.getElementById('auth-section');
+    var accountSection = document.getElementById('account-section');
+    if (!authSection || !accountSection) return;
+
+    var tabSignin = document.getElementById('tab-signin');
+    var tabSignup = document.getElementById('tab-signup');
+    var signinPanel = document.getElementById('signin-panel');
+    var signupPanel = document.getElementById('signup-panel');
+
+    var methodPassword = document.getElementById('method-password');
+    var methodMagic = document.getElementById('method-magic');
+    var signinPasswordField = document.getElementById('signin-password-field');
+
+    var signinEmail = document.getElementById('signin-email');
+    var signinPassword = document.getElementById('signin-password');
+    var signinSubmit = document.getElementById('signin-submit');
+    var signinStatus = document.getElementById('signin-status');
+
+    var signupName = document.getElementById('signup-name');
+    var signupEmail = document.getElementById('signup-email');
+    var signupPassword = document.getElementById('signup-password');
+    var signupSubmit = document.getElementById('signup-submit');
+    var signupStatus = document.getElementById('signup-status');
+
+    var accountEmailDisplay = document.getElementById('account-email-display');
+    var signoutBtn = document.getElementById('signout-btn');
+
+    var profileForm = document.getElementById('profile-form');
+    var profileName = document.getElementById('profile-name');
+    var profilePhone = document.getElementById('profile-phone');
+    var profileAddress = document.getElementById('profile-address');
+    var profileSubmit = document.getElementById('profile-submit');
+    var profileStatus = document.getElementById('profile-status');
+
+    var usingMagicLink = false;
+
+    // ---------- Tab switching (Sign In / Sign Up) ----------
+    function activateTab(which){
+      var isSignin = which === 'signin';
+      if (tabSignin) {
+        tabSignin.setAttribute('aria-selected', isSignin ? 'true' : 'false');
+        tabSignin.classList.toggle('bg-primary', isSignin);
+        tabSignin.classList.toggle('text-on-primary', isSignin);
+        tabSignin.classList.toggle('bg-surface-container-low', !isSignin);
+        tabSignin.classList.toggle('text-on-surface-variant', !isSignin);
+      }
+      if (tabSignup) {
+        tabSignup.setAttribute('aria-selected', !isSignin ? 'true' : 'false');
+        tabSignup.classList.toggle('bg-primary', !isSignin);
+        tabSignup.classList.toggle('text-on-primary', !isSignin);
+        tabSignup.classList.toggle('bg-surface-container-low', isSignin);
+        tabSignup.classList.toggle('text-on-surface-variant', isSignin);
+      }
+      if (signinPanel) signinPanel.classList.toggle('hidden', !isSignin);
+      if (signupPanel) signupPanel.classList.toggle('hidden', isSignin);
+    }
+    if (tabSignin) tabSignin.addEventListener('click', function(){ activateTab('signin'); });
+    if (tabSignup) tabSignup.addEventListener('click', function(){ activateTab('signup'); });
+
+    // ---------- Method switching (Password / Magic Link) — applies to Sign In only ----------
+    function setMethod(magic){
+      usingMagicLink = magic;
+      if (methodPassword) {
+        methodPassword.setAttribute('aria-pressed', magic ? 'false' : 'true');
+        methodPassword.classList.toggle('bg-primary', !magic);
+        methodPassword.classList.toggle('text-on-primary', !magic);
+        methodPassword.classList.toggle('text-on-surface-variant', magic);
+        methodPassword.classList.toggle('border', magic);
+        methodPassword.classList.toggle('border-outline-variant/40', magic);
+      }
+      if (methodMagic) {
+        methodMagic.setAttribute('aria-pressed', magic ? 'true' : 'false');
+        methodMagic.classList.toggle('bg-primary', magic);
+        methodMagic.classList.toggle('text-on-primary', magic);
+        methodMagic.classList.toggle('text-on-surface-variant', !magic);
+        methodMagic.classList.toggle('border', !magic);
+        methodMagic.classList.toggle('border-outline-variant/40', !magic);
+      }
+      if (signinPasswordField) signinPasswordField.classList.toggle('hidden', magic);
+      if (signinSubmit) {
+        var label = signinSubmit.querySelector('.btn-label');
+        if (label) label.textContent = magic ? 'Send Magic Link' : 'Sign In';
+      }
+      if (signinStatus) signinStatus.textContent = '';
+      // Forgot-password only makes sense in password mode
+      if (magic) {
+        var fpPanel = document.getElementById('forgot-password-panel');
+        if (fpPanel) fpPanel.classList.add('hidden');
+      }
+    }
+    if (methodPassword) methodPassword.addEventListener('click', function(){ setMethod(false); });
+    if (methodMagic) methodMagic.addEventListener('click', function(){ setMethod(true); });
+
+    // ---------- Password visibility toggles ----------
+    document.querySelectorAll('.password-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var targetId = btn.getAttribute('data-target');
+        var input = document.getElementById(targetId);
+        if (!input) return;
+        var isShown = input.type === 'text';
+        input.type = isShown ? 'password' : 'text';
+        btn.setAttribute('aria-pressed', isShown ? 'false' : 'true');
+        btn.setAttribute('aria-label', isShown ? 'Show password' : 'Hide password');
+        var icon = btn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          var newIcon = isShown ? 'visibility' : 'visibility_off';
+          icon.setAttribute('data-icon', newIcon);
+          icon.textContent = newIcon;
+        }
+      });
+    });
+
+    // ---------- Status message helper ----------
+    function setStatus(el, message, isError){
+      if (!el) return;
+      el.textContent = message;
+      el.style.color = isError ? '#ba1a1a' : '#1B4332';
+    }
+
+    function setLoading(button, isLoading, loadingText){
+      if (!button) return;
+      button.disabled = isLoading;
+      var label = button.querySelector('.btn-label');
+      if (!label) return;
+      if (isLoading) {
+        button.dataset.originalLabel = label.textContent;
+        label.textContent = loadingText;
+      } else if (button.dataset.originalLabel) {
+        label.textContent = button.dataset.originalLabel;
+      }
+    }
+
+    // ---------- SIGN IN (password or magic link) ----------
+    if (document.getElementById('signin-panel')) {
+      document.getElementById('signin-panel').addEventListener('submit', async function(e){
+        e.preventDefault();
+        var email = (signinEmail && signinEmail.value || '').trim();
+        if (!email) {
+          setStatus(signinStatus, 'Please enter your email.', true);
+          return;
+        }
+
+        if (usingMagicLink) {
+          setLoading(signinSubmit, true, 'Sending…');
+          setStatus(signinStatus, '', false);
+          try {
+            var result = await supabaseClient.auth.signInWithOtp({
+              email: email,
+              options: { emailRedirectTo: window.location.href }
+            });
+            if (result.error) {
+              // Magic link requests don't reveal whether the email exists either —
+              // Supabase's OTP signup is enabled, so this basically always succeeds
+              // for a well-formed email. We show a neutral message either way.
+              setStatus(signinStatus, 'Something went wrong. Please try again.', true);
+            } else {
+              setStatus(signinStatus, 'Check your email for a sign-in link.', false);
+            }
+          } catch (err) {
+            setStatus(signinStatus, 'Something went wrong. Please try again.', true);
+          } finally {
+            setLoading(signinSubmit, false);
+          }
+          return;
+        }
+
+        var password = signinPassword && signinPassword.value || '';
+        if (!password) {
+          setStatus(signinStatus, 'Please enter your password.', true);
+          return;
+        }
+        setLoading(signinSubmit, true, 'Signing in…');
+        setStatus(signinStatus, '', false);
+        try {
+          var result = await supabaseClient.auth.signInWithPassword({ email: email, password: password });
+          if (result.error) {
+            // Deliberately generic: never say "wrong password" or "no account found" —
+            // confirming which one is wrong lets an attacker enumerate valid emails.
+            setStatus(signinStatus, 'Invalid credentials.', true);
+          } else {
+            setStatus(signinStatus, '', false);
+            // onAuthStateChange (below) handles showing the account section
+          }
+        } catch (err) {
+          setStatus(signinStatus, 'Invalid credentials.', true);
+        } finally {
+          setLoading(signinSubmit, false);
+        }
+      });
+    }
+
+    // ---------- FORGOT PASSWORD ----------
+    var forgotPasswordTrigger = document.getElementById('forgot-password-trigger');
+    var forgotPasswordPanel = document.getElementById('forgot-password-panel');
+    var forgotPasswordClose = document.getElementById('forgot-password-close');
+    var forgotPasswordForm = document.getElementById('forgot-password-form');
+    var forgotPasswordEmail = document.getElementById('forgot-password-email');
+    var forgotPasswordSubmit = document.getElementById('forgot-password-submit');
+    var forgotPasswordStatus = document.getElementById('forgot-password-status');
+
+    if (forgotPasswordTrigger && forgotPasswordPanel) {
+      forgotPasswordTrigger.addEventListener('click', function(){
+        var isHidden = forgotPasswordPanel.classList.contains('hidden');
+        forgotPasswordPanel.classList.toggle('hidden');
+        if (isHidden) {
+          // Pre-fill with whatever email they'd already typed in the sign-in field, if any
+          if (forgotPasswordEmail && signinEmail && signinEmail.value) {
+            forgotPasswordEmail.value = signinEmail.value;
+          }
+          if (forgotPasswordEmail) forgotPasswordEmail.focus();
+        }
+      });
+    }
+    if (forgotPasswordClose && forgotPasswordPanel) {
+      forgotPasswordClose.addEventListener('click', function(){
+        forgotPasswordPanel.classList.add('hidden');
+      });
+    }
+    if (forgotPasswordForm) {
+      forgotPasswordForm.addEventListener('submit', async function(e){
+        e.preventDefault();
+        var email = (forgotPasswordEmail && forgotPasswordEmail.value || '').trim();
+        if (!email) {
+          setStatus(forgotPasswordStatus, 'Please enter your email.', true);
+          return;
+        }
+        setLoading(forgotPasswordSubmit, true, 'Sending…');
+        setStatus(forgotPasswordStatus, '', false);
+        try {
+          var result = await supabaseClient.auth.resetPasswordForEmail(email, {
+            redirectTo: window.location.origin + window.location.pathname
+          });
+          // Deliberately the SAME message whether or not the email is registered —
+          // same enumeration-prevention principle as sign-in and sign-up. Supabase
+          // itself does not error here for an unknown email, so this is accurate too.
+          if (result.error) {
+            setStatus(forgotPasswordStatus, 'Something went wrong. Please try again.', true);
+          } else {
+            setStatus(forgotPasswordStatus, 'If an account exists for that email, a reset link is on its way.', false);
+          }
+        } catch (err) {
+          setStatus(forgotPasswordStatus, 'Something went wrong. Please try again.', true);
+        } finally {
+          setLoading(forgotPasswordSubmit, false);
+        }
+      });
+    }
+
+    // ---------- RESET PASSWORD (only reachable via the emailed link) ----------
+    var resetPasswordPanel = document.getElementById('reset-password-panel');
+    var resetPasswordForm = document.getElementById('reset-password-form');
+    var newPasswordInput = document.getElementById('new-password');
+    var resetPasswordSubmit = document.getElementById('reset-password-submit');
+    var resetPasswordStatus = document.getElementById('reset-password-status');
+
+    if (resetPasswordForm) {
+      resetPasswordForm.addEventListener('submit', async function(e){
+        e.preventDefault();
+        var newPassword = newPasswordInput && newPasswordInput.value || '';
+        if (newPassword.length < 8) {
+          setStatus(resetPasswordStatus, 'Password must be at least 8 characters.', true);
+          return;
+        }
+        setLoading(resetPasswordSubmit, true, 'Updating…');
+        setStatus(resetPasswordStatus, '', false);
+        try {
+          var result = await supabaseClient.auth.updateUser({ password: newPassword });
+          if (result.error) {
+            setStatus(resetPasswordStatus, 'Could not update password. Please try again.', true);
+          } else {
+            setStatus(resetPasswordStatus, 'Password updated. Redirecting…', false);
+            // Clean the recovery token out of the URL and show the normal account view
+            setTimeout(function(){
+              window.history.replaceState({}, document.title, window.location.pathname);
+              if (resetPasswordPanel) resetPasswordPanel.classList.add('hidden');
+            }, 1200);
+          }
+        } catch (err) {
+          setStatus(resetPasswordStatus, 'Could not update password. Please try again.', true);
+        } finally {
+          setLoading(resetPasswordSubmit, false);
+        }
+      });
+    }
+
+    // ---------- SIGN UP ----------
+    if (document.getElementById('signup-panel')) {
+      document.getElementById('signup-panel').addEventListener('submit', async function(e){
+        e.preventDefault();
+        var name = (signupName && signupName.value || '').trim();
+        var email = (signupEmail && signupEmail.value || '').trim();
+        var password = signupPassword && signupPassword.value || '';
+
+        if (!name) {
+          setStatus(signupStatus, 'Please enter your name.', true);
+          return;
+        }
+        if (!email) {
+          setStatus(signupStatus, 'Please enter your email.', true);
+          return;
+        }
+        if (password.length < 8) {
+          setStatus(signupStatus, 'Password must be at least 8 characters.', true);
+          return;
+        }
+
+        setLoading(signupSubmit, true, 'Creating account…');
+        setStatus(signupStatus, '', false);
+        try {
+          var result = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: { data: { full_name: name } }
+          });
+          if (result.error) {
+            // Never show the raw Supabase error message here — it can say things like
+            // "User already registered", which leaks whether an email is taken. Keep
+            // this generic, same principle as the sign-in "Invalid credentials" message.
+            setStatus(signupStatus, 'Could not create account with these details. Please try again or sign in instead.', true);
+          } else if (result.data && result.data.user && !result.data.session) {
+            // Email confirmation is required before a session exists
+            setStatus(signupStatus, 'Account created — check your email to confirm before signing in.', false);
+          } else {
+            // Save the name they typed into their profile right away, if we already have a session
+            if (name) {
+              await supabaseClient
+                .from('profiles')
+                .update({ full_name: name })
+                .eq('id', result.data.user.id);
+            }
+            setStatus(signupStatus, '', false);
+            // onAuthStateChange handles the rest
+          }
+        } catch (err) {
+          setStatus(signupStatus, 'Could not create account. Please try again.', true);
+        } finally {
+          setLoading(signupSubmit, false);
+        }
+      });
+    }
+
+    // ---------- SIGN OUT ----------
+    if (signoutBtn) {
+      signoutBtn.addEventListener('click', async function(){
+        await supabaseClient.auth.signOut();
+        // onAuthStateChange handles showing the auth section again
+      });
+    }
+
+    // ---------- Load profile into the saved-details form ----------
+    async function loadProfile(userId, userEmail){
+      if (accountEmailDisplay) accountEmailDisplay.textContent = userEmail || '';
+      try {
+        var result = await supabaseClient
+          .from('profiles')
+          .select('full_name, phone, delivery_address')
+          .eq('id', userId)
+          .single();
+        if (result.error) {
+          console.error('Could not load profile:', result.error.message);
+          return;
+        }
+        var data = result.data;
+        if (data) {
+          if (profileName) profileName.value = data.full_name || '';
+          if (profilePhone) profilePhone.value = data.phone || '';
+          if (profileAddress) profileAddress.value = data.delivery_address || '';
+        }
+      } catch (err) {
+        console.error('Could not load profile:', err);
+      }
+    }
+
+    // ---------- Save profile ----------
+    if (profileForm) {
+      profileForm.addEventListener('submit', async function(e){
+        e.preventDefault();
+        var sessionResult = await supabaseClient.auth.getSession();
+        var session = sessionResult.data && sessionResult.data.session;
+        if (!session) {
+          setStatus(profileStatus, 'You have been signed out. Please sign in again.', true);
+          return;
+        }
+        setLoading(profileSubmit, true, 'Saving…');
+        setStatus(profileStatus, '', false);
+        try {
+          var result = await supabaseClient
+            .from('profiles')
+            .update({
+              full_name: (profileName && profileName.value || '').trim(),
+              phone: (profilePhone && profilePhone.value || '').trim(),
+              delivery_address: (profileAddress && profileAddress.value || '').trim()
+            })
+            .eq('id', session.user.id);
+          if (result.error) {
+            setStatus(profileStatus, 'Could not save your details. Please try again.', true);
+          } else {
+            setStatus(profileStatus, 'Saved.', false);
+          }
+        } catch (err) {
+          setStatus(profileStatus, 'Could not save your details. Please try again.', true);
+        } finally {
+          setLoading(profileSubmit, false);
+        }
+      });
+    }
+
+    // ---------- Show the right section based on auth state ----------
+    function showLoggedIn(session){
+      authSection.classList.add('hidden');
+      accountSection.classList.remove('hidden');
+      loadProfile(session.user.id, session.user.email);
+    }
+    function showLoggedOut(){
+      authSection.classList.remove('hidden');
+      accountSection.classList.add('hidden');
+    }
+    function showResetPassword(){
+      // Show ONLY the reset-password panel — hide the normal sign-in/sign-up forms
+      // and the logged-in dashboard, so a recovery-link visitor can't accidentally
+      // land on someone else's saved details or a confusing half-state.
+      authSection.classList.add('hidden');
+      accountSection.classList.add('hidden');
+      if (resetPasswordPanel) resetPasswordPanel.classList.remove('hidden');
+    }
+
+    // Detect a password-recovery link SYNCHRONOUSLY from the URL itself, rather than
+    // waiting on the PASSWORD_RECOVERY event alone. Supabase includes type=recovery
+    // in the URL hash when redirecting back from a reset-password email. Checking this
+    // up front avoids a race where getSession() could resolve and show the logged-in
+    // dashboard before the recovery event has a chance to fire.
+    var isPasswordRecoveryLink = /type=recovery/.test(window.location.hash);
+
+    supabaseClient.auth.onAuthStateChange(function(event, session){
+      if (event === 'PASSWORD_RECOVERY') {
+        showResetPassword();
+        return;
+      }
+      if (isPasswordRecoveryLink) {
+        // Recovery link is present but the event hasn't fired yet (or already passed) —
+        // stay on the reset panel regardless of what getSession() reports.
+        showResetPassword();
+        return;
+      }
+      if (session) {
+        showLoggedIn(session);
+      } else {
+        showLoggedOut();
+      }
+    });
+
+    // Check current session on page load (covers magic-link return visits too).
+    if (isPasswordRecoveryLink) {
+      showResetPassword();
+    } else {
+      supabaseClient.auth.getSession().then(function(result){
+        var session = result.data && result.data.session;
+        if (session) {
+          showLoggedIn(session);
+        } else {
+          showLoggedOut();
+        }
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
