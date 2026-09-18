@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kanol Rice — Admin</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:wght@600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hanken Grotesk',system-ui,sans-serif;background:#f3f4f6;color:#111827;min-height:100vh;}
+:root{
+  --green:#012d1d;--green2:#1b4332;--green3:#d1fae5;
+  --amber:#92400e;--amber-bg:#fef3c7;
+  --red:#991b1b;--red-bg:#fee2e2;
+  --gray:#6b7280;--border:#e5e7eb;--white:#fff;
+}
+/* Layout */
+#app{display:flex;min-height:100vh;}
+#sidebar{width:240px;min-height:100vh;background:var(--green);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100%;z-index:50;transition:transform .25s;}
+#sidebar.hidden{transform:translateX(-240px);}
+#main{flex:1;margin-left:240px;display:flex;flex-direction:column;min-height:100vh;}
+@media(max-width:768px){
+  #sidebar{transform:translateX(-240px);}
+  #sidebar.open{transform:translateX(0);}
+  #main{margin-left:0;}
+  #overlay{display:block!important;}
+}
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40;}
+/* Sidebar */
+.sb-brand{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sb-brand h1{font-family:'Source Serif 4',serif;font-size:16px;font-weight:700;color:#fff;}
+.sb-brand p{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;}
+.sb-close{background:none;border:none;color:rgba(255,255,255,.5);cursor:pointer;font-size:22px;display:none;padding:4px;}
+@media(max-width:768px){.sb-close{display:block;}}
+.sb-brand-row{display:flex;align-items:center;justify-content:space-between;}
+nav{flex:1;padding:12px 10px;overflow-y:auto;}
+.nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:none;background:none;color:rgba(255,255,255,.55);font-size:13.5px;font-weight:500;font-family:inherit;border-radius:10px;cursor:pointer;text-align:left;transition:background .15s,color .15s;margin-bottom:2px;}
+.nav-btn:hover{background:rgba(255,255,255,.08);color:#fff;}
+.nav-btn.active{background:rgba(255,255,255,.15);color:#fff;}
+.nav-btn .icon{font-family:'Material Symbols Outlined';font-size:20px;font-weight:400;font-style:normal;line-height:1;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+.sb-user{padding:14px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:10px;}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;}
+.sb-email{font-size:11px;color:#fff;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sb-logout{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;padding:4px;border-radius:6px;line-height:1;}
+.sb-logout:hover{color:#fff;}
+.sb-logout .icon{font-family:'Material Symbols Outlined';font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+/* Topbar */
+#topbar{background:#fff;border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:30;}
+#menu-btn{background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;display:none;}
+@media(max-width:768px){#menu-btn{display:block;}}
+#menu-btn .icon{font-family:'Material Symbols Outlined';font-size:22px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+#page-title{font-size:14px;font-weight:700;color:#1f2937;flex:1;}
+#page-sub{font-size:11px;color:#9ca3af;}
+.view-site{font-size:12px;font-weight:500;color:#6b7280;text-decoration:none;padding:6px 12px;border:1px solid var(--border);border-radius:8px;white-space:nowrap;}
+.view-site:hover{background:#f9fafb;}
+@media(max-width:480px){.view-site{display:none;}}
+/* Content */
+#content{flex:1;padding:20px;max-width:1100px;width:100%;}
+@media(max-width:480px){#content{padding:14px;}}
+/* Cards */
+.card{background:#fff;border-radius:14px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;margin-bottom:16px;}
+.card-head{padding:14px 20px;border-bottom:1px solid #f9fafb;display:flex;align-items:center;justify-content:space-between;}
+.card-head h2{font-size:13.5px;font-weight:700;color:#374151;}
+.card-body{padding:20px;}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border:none;transition:background .15s;white-space:nowrap;}
+.btn-primary{background:var(--green);color:#fff;}
+.btn-primary:hover{background:var(--green2);}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;}
+.btn-secondary{background:#fff;color:#374151;border:1px solid var(--border);}
+.btn-secondary:hover{background:#f9fafb;}
+.btn-danger{background:#dc2626;color:#fff;}
+.btn-danger:hover{background:#b91c1c;}
+.btn .icon{font-family:'Material Symbols Outlined';font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+/* Badges */
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;}
+.badge-green{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;}
+.badge-yellow{background:#fffbeb;color:#92400e;border:1px solid #fcd34d;}
+.badge-red{background:#fef2f2;color:#991b1b;border:1px solid #fca5a5;}
+.badge-gray{background:#f3f4f6;color:#4b5563;border:1px solid #d1d5db;}
+.badge-blue{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;}
+/* Forms */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.field label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#6b7280;}
+.field .hint{font-size:11px;color:#9ca3af;}
+input,textarea,select{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13.5px;font-family:inherit;background:#fff;color:#111827;outline:none;transition:border-color .15s,box-shadow .15s;}
+input:focus,textarea:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(1,45,29,.1);}
+textarea{resize:vertical;}
+/* Toggle */
+.toggle-wrap{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;}
+.toggle-track{width:40px;height:22px;border-radius:11px;background:#d1d5db;position:relative;transition:background .2s;flex-shrink:0;}
+.toggle-track.on{background:var(--green);}
+.toggle-thumb{width:16px;height:16px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.toggle-track.on .toggle-thumb{transform:translateX(18px);}
+.toggle-label{font-size:13.5px;color:#374151;}
+/* Table */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;padding:10px 16px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;border-bottom:1px solid #f3f4f6;background:#fafafa;white-space:nowrap;}
+td{padding:12px 16px;border-bottom:1px solid #f9fafb;color:#374151;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#fafafa;}
+/* Action buttons in table */
+.act-btn{background:none;border:none;padding:6px;border-radius:8px;cursor:pointer;color:#9ca3af;display:inline-flex;align-items:center;}
+.act-btn:hover{background:#f3f4f6;color:#374151;}
+.act-btn.danger:hover{background:#fef2f2;color:#dc2626;}
+.act-btn .icon{font-family:'Material Symbols Outlined';font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+/* Modal */
+#modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto;}
+#modal-bg.open{display:flex;}
+#modal{background:#fff;border-radius:16px;width:100%;max-width:560px;margin:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+#modal.wide{max-width:720px;}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
+.modal-head h3{font-size:14px;font-weight:700;color:#1f2937;}
+.modal-close{background:none;border:none;cursor:pointer;padding:4px;border-radius:8px;color:#9ca3af;}
+.modal-close:hover{background:#f3f4f6;color:#374151;}
+.modal-close .icon{font-family:'Material Symbols Outlined';font-size:20px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+.modal-body{padding:20px;}
+.modal-foot{display:flex;gap:10px;justify-content:flex-end;padding:16px 20px;border-top:1px solid #f3f4f6;}
+/* Grid */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:520px){.grid-2{grid-template-columns:1fr;}}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:900px){.grid-4{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.grid-4{grid-template-columns:1fr 1fr;}}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:700px){.grid-3{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:420px){.grid-3{grid-template-columns:1fr;}}
+/* Stat card */
+.stat-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px;display:flex;align-items:center;gap:14px;}
+.stat-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.stat-icon .icon{font-family:'Material Symbols Outlined';font-size:22px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+.stat-val{font-size:24px;font-weight:700;color:#111827;}
+.stat-lbl{font-size:11px;color:#9ca3af;margin-top:2px;}
+/* Empty state */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 20px;text-align:center;}
+.empty .icon{font-family:'Material Symbols Outlined';font-size:52px;color:#d1d5db;margin-bottom:14px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+.empty h3{font-size:15px;font-weight:600;color:#6b7280;margin-bottom:6px;}
+.empty p{font-size:13px;color:#9ca3af;margin-bottom:20px;max-width:280px;}
+/* Toast */
+#toast{position:fixed;bottom:24px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
+.toast-item{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;color:#fff;font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.2);pointer-events:all;animation:slideUp .2s ease;}
+@keyframes slideUp{from{transform:translateY(10px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.toast-success{background:#012d1d;}
+.toast-error{background:#dc2626;}
+.toast-item .icon{font-family:'Material Symbols Outlined';font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+/* Confirm dialog */
+#confirm-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:center;justify-content:center;padding:16px;}
+#confirm-bg.open{display:flex;}
+#confirm-box{background:#fff;border-radius:16px;max-width:380px;width:100%;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+#confirm-box p{font-size:13.5px;color:#374151;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;}
+#confirm-box .icon{font-family:'Material Symbols Outlined';font-size:22px;color:#f59e0b;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;flex-shrink:0;margin-top:1px;}
+/* Search */
+.search-wrap{position:relative;margin-bottom:14px;}
+.search-wrap input{padding-left:36px;}
+.search-wrap .icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-family:'Material Symbols Outlined';font-size:18px;color:#9ca3af;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;pointer-events:none;}
+/* Filters */
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.filter-btn{padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12px;font-weight:600;color:#6b7280;cursor:pointer;font-family:inherit;transition:all .15s;}
+.filter-btn.active{background:var(--green);color:#fff;border-color:var(--green);}
+/* Product image thumb */
+.thumb{width:40px;height:40px;border-radius:8px;object-fit:cover;border:1px solid var(--border);flex-shrink:0;}
+.thumb-placeholder{width:40px;height:40px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.thumb-placeholder .icon{font-family:'Material Symbols Outlined';font-size:20px;color:#d1d5db;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+/* Size pills in form */
+.size-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.size-row select{flex:1;}
+.size-default-btn{padding:4px 10px;border-radius:6px;border:1px solid var(--border);font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;background:#fff;color:#6b7280;}
+.size-default-btn.active{background:var(--green);color:#fff;border-color:var(--green);}
+.size-remove{background:none;border:none;cursor:pointer;padding:4px;border-radius:6px;color:#9ca3af;}
+.size-remove:hover{color:#dc2626;background:#fef2f2;}
+.size-remove .icon{font-family:'Material Symbols Outlined';font-size:16px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+/* Add size link */
+.add-size-btn{background:none;border:none;color:var(--green);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;gap:4px;padding:0;}
+.add-size-btn .icon{font-family:'Material Symbols Outlined';font-size:16px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+/* Image preview */
+.img-preview{width:100%;height:140px;object-fit:cover;border-radius:10px;border:1px solid var(--border);margin-top:8px;}
+/* Login */
+#login-screen{min-height:100vh;background:var(--green);display:flex;align-items:center;justify-content:center;padding:16px;}
+.login-box{background:#fff;border-radius:20px;padding:32px;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-logo{width:52px;height:52px;border-radius:14px;background:var(--green2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.login-logo .icon{font-family:'Material Symbols Outlined';font-size:28px;color:#fff;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+.login-box h1{font-family:'Source Serif 4',serif;font-size:20px;font-weight:700;text-align:center;color:#111827;margin-bottom:4px;}
+.login-box .sub{font-size:13px;color:#9ca3af;text-align:center;margin-bottom:24px;}
+.error-box{background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#991b1b;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px;}
+.error-box .icon{font-family:'Material Symbols Outlined';font-size:16px;color:#ef4444;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;flex-shrink:0;margin-top:1px;}
+.login-note{font-size:11px;color:#9ca3af;text-align:center;margin-top:16px;line-height:1.5;}
+/* Info box */
+.info-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 14px;font-size:12px;color:#166534;display:flex;gap:8px;align-items:flex-start;margin-bottom:14px;}
+.warn-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;padding:10px 14px;font-size:12px;color:#92400e;display:flex;gap:8px;align-items:flex-start;margin-bottom:14px;}
+.info-box .icon,.warn-box .icon{font-family:'Material Symbols Outlined';font-size:16px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;flex-shrink:0;margin-top:1px;}
+/* Spinner */
+.spin{width:28px;height:28px;border:3px solid #e5e7eb;border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:40px auto;}
+.spin-sm{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* Heading row */
+.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+.page-head h1{font-size:20px;font-weight:700;color:#111827;}
+.page-head p{font-size:13px;color:#9ca3af;margin-top:2px;}
+/* SQL block */
+pre.sql{background:#111827;color:#6ee7b7;font-size:11px;border-radius:12px;padding:16px;overflow-x:auto;line-height:1.6;white-space:pre-wrap;word-break:break-all;}
+/* Phase checklist */
+.phase-row{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:13px;}
+.phase-row .icon{font-family:'Material Symbols Outlined';font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;flex-shrink:0;margin-top:1px;}
+.phase-row.done{color:#374151;}
+.phase-row.done .icon{color:#059669;}
+.phase-row.todo{color:#9ca3af;}
+.phase-row.todo .icon{color:#d1d5db;}
+/* Customer avatar */
+.avatar{width:34px;height:34px;border-radius:50%;background:#d1fae5;color:#065f46;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;}
+/* Gallery card */
+.gal-card{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.gal-img{width:100%;height:160px;object-fit:cover;background:#f3f4f6;display:flex;align-items:center;justify-content:center;}
+.gal-img img{width:100%;height:100%;object-fit:cover;}
+.gal-img .icon{font-family:'Material Symbols Outlined';font-size:44px;color:#d1d5db;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+.gal-body{padding:12px 14px;}
+.gal-body h4{font-size:13px;font-weight:600;color:#111827;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px;}
+.gal-body p{font-size:11px;color:#9ca3af;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:10px;}
+.gal-foot{display:flex;align-items:center;justify-content:space-between;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo"><span class="icon">eco</span></div>
+    <h1>Kanol Rice Admin</h1>
+    <p class="sub">Admin accounts only</p>
+    <div id="login-err" class="error-box" style="display:none">
+      <span class="icon">error</span><span id="login-err-msg"></span>
+    </div>
+    <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="Enter your email" autocomplete="email"/></div>
+    <div class="field"><label>Password</label><input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password"/></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" id="login-btn" onclick="doLogin()">Sign In</button>
+    <p class="login-note">Only accounts with <code>role = admin</code> in the profiles table can access this panel.</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none;">
+  <div id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-brand-row">
+        <div>
+          <h1>Kanol Rice</h1>
+          <p>Farm Admin Panel</p>
+        </div>
+        <button class="sb-close" onclick="closeSidebar()"><span class="icon" style="font-family:'Material Symbols Outlined';font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">close</span></button>
+      </div>
+    </div>
+    <nav id="nav"></nav>
+    <div class="sb-user">
+      <div class="sb-avatar" id="sb-avatar">C</div>
+      <div class="sb-email" id="sb-email">—</div>
+      <button class="sb-logout" onclick="doLogout()" title="Sign out"><span class="icon">logout</span></button>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-btn" onclick="openSidebar()"><span class="icon">menu</span></button>
+      <div style="flex:1">
+        <div id="page-title">Dashboard</div>
+        <div id="page-sub">kanolrice.com · Live</div>
+      </div>
+      <a href="index.html" target="_blank" class="view-site">View Site ↗</a>
+    </div>
+    <div id="content"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal-bg">
+  <div id="modal">
+    <div class="modal-head">
+      <h3 id="modal-title">Modal</h3>
+      <button class="modal-close" onclick="closeModal()"><span class="icon">close</span></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot"></div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div id="confirm-bg">
+  <div id="confirm-box">
+    <p><span class="icon">warning</span><span id="confirm-msg">Are you sure?</span></p>
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button class="btn btn-secondary" onclick="closeConfirm()">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+'use strict';
+/* ── SUPABASE ── */
+const SUPA_URL  = 'https://xqwjrwmjoabajolgigrq.supabase.co';
+const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhxd2pyd21qb2FiYWpvbGdpZ3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1ODU5MzQsImV4cCI6MjEwNTE2MTkzNH0.Y0BuBkMwTLawWYhGkjVazWeeKbkJb4IhBSVLOvL-zug';
+const db = window.supabase.createClient(SUPA_URL, SUPA_ANON);
+
+/* ── STATE ── */
+let currentUser = null;
+let currentPage = 'dashboard';
+let confirmCallback = null;
+let sizesData = {}; // productId -> [{label,display_order,is_default,id}]
+let editingProductId = null;
+let editingGalleryId = null;
+
+/* ── NAVIGATION ── */
+const PAGES = [
+  {id:'dashboard', label:'Dashboard',   icon:'dashboard'},
+  {id:'products',  label:'Products',    icon:'inventory_2'},
+  {id:'gallery',   label:'Gallery',     icon:'photo_library'},
+  {id:'customers', label:'Customers',   icon:'group'},
+  {id:'brand',     label:'Brand Manager', icon:'storefront'},
+  {id:'settings',  label:'Settings',    icon:'settings'},
+];
+
+function buildNav() {
+  const nav = document.getElementById('nav');
+  nav.innerHTML = PAGES.map(p => `
+    <button class="nav-btn ${p.id===currentPage?'active':''}" onclick="goTo('${p.id}')">
+      <span class="icon">${p.icon}</span>${p.label}
+    </button>
+  `).join('');
+}
+
+function goTo(page) {
+  currentPage = page;
+  document.getElementById('page-title').textContent = PAGES.find(p=>p.id===page)?.label || page;
+  buildNav();
+  closeSidebar();
+  renderPage(page);
+}
+
+function openSidebar()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('overlay').style.display='block'; }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').style.display='none'; }
+
+/* ── TOAST ── */
+function toast(msg, type='success') {
+  const t = document.getElementById('toast');
+  const el = document.createElement('div');
+  el.className = `toast-item toast-${type}`;
+  el.innerHTML = `<span class="icon">${type==='error'?'error':'check_circle'}</span>${esc(msg)}`;
+  t.appendChild(el);
+  setTimeout(()=>el.remove(), 3500);
+}
+function esc(s){ return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):''; }
+
+/* ── CONFIRM ── */
+function confirm2(msg, cb) {
+  document.getElementById('confirm-msg').textContent = msg;
+  document.getElementById('confirm-bg').classList.add('open');
+  confirmCallback = cb;
+  document.getElementById('confirm-ok').onclick = ()=>{ closeConfirm(); cb(); };
+}
+function closeConfirm() { document.getElementById('confirm-bg').classList.remove('open'); }
+
+/* ── MODAL ── */
+function openModal(title, bodyHTML, footHTML, wide) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').innerHTML = bodyHTML;
+  document.getElementById('modal-foot').innerHTML = footHTML;
+  document.getElementById('modal').className = wide ? 'wide' : '';
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal() { document.getElementById('modal-bg').classList.remove('open'); }
+
+/* ── SPINNER ── */
+function spin() { return '<div class="spin"></div>'; }
+
+/* ── AUTH ── */
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  const btn   = document.getElementById('login-btn');
+  const errBox= document.getElementById('login-err');
+  const errMsg= document.getElementById('login-err-msg');
+  if (!email||!pass) { showLoginErr('Please enter your email and password.'); return; }
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin-sm"></span> Signing in…';
+  errBox.style.display = 'none';
+  const {data, error} = await db.auth.signInWithPassword({email, password:pass});
+  if (error) { showLoginErr(error.message); resetLoginBtn(); return; }
+  // Check admin role
+  const {data:profile} = await db.from('profiles').select('role').eq('id',data.user.id).single();
+  if (!profile || profile.role !== 'admin') {
+    await db.auth.signOut();
+    showLoginErr('This account does not have admin access. Make sure you ran the promote SQL.');
+    resetLoginBtn(); return;
+  }
+  currentUser = data.user;
+  startApp();
+}
+function showLoginErr(msg) {
+  document.getElementById('login-err').style.display='flex';
+  document.getElementById('login-err-msg').textContent = msg;
+}
+function resetLoginBtn() {
+  const btn = document.getElementById('login-btn');
+  btn.disabled=false; btn.textContent='Sign In';
+}
+async function doLogout() {
+  await db.auth.signOut();
+  location.reload();
+}
+document.getElementById('login-email').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('login-pass').focus(); });
+document.getElementById('login-pass').addEventListener('keydown',  e=>{ if(e.key==='Enter') doLogin(); });
+
+/* ── TOGGLE HELPER ── */
+function makeToggle(id, checked) {
+  return `<div class="toggle-wrap" onclick="toggleClick('${id}')">
+    <div class="toggle-track ${checked?'on':''}" id="track-${id}">
+      <div class="toggle-thumb"></div>
+    </div>
+    <span class="toggle-label" id="label-${id}">${checked?'Yes':'No'}</span>
+    <input type="hidden" id="${id}" value="${checked?'1':'0'}"/>
+  </div>`;
+}
+function toggleClick(id) {
+  const track = document.getElementById('track-'+id);
+  const input = document.getElementById(id);
+  const label = document.getElementById('label-'+id);
+  const on = track.classList.toggle('on');
+  input.value = on?'1':'0';
+  if(label) label.textContent = on?'Yes':'No';
+}
+function getToggle(id) { return document.getElementById(id)?.value === '1'; }
+
+/* ── START APP ── */
+function startApp() {
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='flex';
+  document.getElementById('sb-email').textContent = currentUser.email;
+  document.getElementById('sb-avatar').textContent = currentUser.email[0].toUpperCase();
+  buildNav();
+  renderPage('dashboard');
+}
+
+/* ── CHECK SESSION ON LOAD ── */
+(async()=>{
+  const {data:{session}} = await db.auth.getSession();
+  if (session?.user) {
+    const {data:profile} = await db.from('profiles').select('role').eq('id',session.user.id).single();
+    if (profile?.role==='admin') { currentUser=session.user; startApp(); }
+    else await db.auth.signOut();
+  }
+})();
+
+/* ══════════════════════════════════════════
+   RENDER ROUTER
+══════════════════════════════════════════ */
+function renderPage(page) {
+  const c = document.getElementById('content');
+  c.innerHTML = spin();
+  if (page==='dashboard') renderDashboard();
+  else if (page==='products') renderProducts();
+  else if (page==='gallery') renderGallery();
+  else if (page==='customers') renderCustomers();
+  else if (page==='brand') renderBrandManager();
+  else if (page==='settings') renderSettings();
+}
+
+/* ══════════════════════════════════════════
+   DASHBOARD
+══════════════════════════════════════════ */
+async function renderDashboard() {
+  const [
+    {count:totalP}, {count:pubP},
+    {count:totalG}, {count:totalC}
+  ] = await Promise.all([
+    db.from('products').select('*',{count:'exact',head:true}),
+    db.from('products').select('*',{count:'exact',head:true}).eq('is_published',true),
+    db.from('gallery_items').select('*',{count:'exact',head:true}),
+    db.from('profiles').select('*',{count:'exact',head:true}).eq('role','customer'),
+  ]);
+  document.getElementById('content').innerHTML = `
+    <div class="page-head"><div><h1>Dashboard</h1><p>Kanol Rice Farm Limited · Live from Supabase</p></div></div>
+    <div class="grid-4" style="margin-bottom:20px;">
+      ${statCard('inventory_2','#ecfdf5','#065f46', totalP??0, 'Total Products')}
+      ${statCard('check_circle','#f0fdf4','#166534', pubP??0, 'Published')}
+      ${statCard('photo_library','#eff6ff','#1e40af', totalG??0, 'Gallery Items')}
+      ${statCard('group','#fffbeb','#92400e', totalC??0, 'Customers')}
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-head"><h2>Quick Actions</h2></div>
+        <div class="card-body" style="padding:12px;">
+          ${['Add a new product|inventory_2|products','Upload gallery media|photo_library|gallery','View customers|group|customers'].map(x=>{
+            const [label,icon,page]=x.split('|');
+            return `<div onclick="goTo('${page}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background=''">
+              <span class="icon" style="font-family:'Material Symbols Outlined';color:var(--green);font-size:20px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">${icon}</span>
+              <span style="font-size:13.5px;font-weight:500;color:#374151;">${label}</span>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Your Schema</h2></div>
+        <div class="card-body">
+          ${[['products','Your 4 rice varieties'],['product_sizes','Size options per product'],['gallery_items','Photos & videos'],['profiles','Admin + customer accounts']].map(([t,d])=>`
+            <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;">
+              <code style="font-size:11px;background:#f3f4f6;padding:2px 6px;border-radius:4px;color:#374151;flex-shrink:0;">${t}</code>
+              <span style="font-size:12px;color:#9ca3af;">${d}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+function statCard(icon,bg,color,val,lbl){
+  return `<div class="stat-card">
+    <div class="stat-icon" style="background:${bg};">
+      <span class="icon" style="color:${color};">${icon}</span>
+    </div>
+    <div><div class="stat-val">${val}</div><div class="stat-lbl">${lbl}</div></div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════
+   PRODUCTS
+══════════════════════════════════════════ */
+async function renderProducts() {
+  const [{data:products},{data:sizes}] = await Promise.all([
+    db.from('products').select('*').order('display_order'),
+    db.from('product_sizes').select('*').order('display_order'),
+  ]);
+  sizesData = {};
+  (sizes||[]).forEach(s=>{ if(!sizesData[s.product_id]) sizesData[s.product_id]=[]; sizesData[s.product_id].push(s); });
+  renderProductsTable(products||[]);
+}
+
+function renderProductsTable(products, search='') {
+  const filtered = search ? products.filter(p=>p.name.toLowerCase().includes(search.toLowerCase())) : products;
+  const c = document.getElementById('content');
+  c.innerHTML = `
+    <div class="page-head">
+      <div><h1>Products</h1><p>${products.length} products in your catalogue</p></div>
+      <button class="btn btn-primary" onclick="openProductForm()"><span class="icon">add</span>Add Product</button>
+    </div>
+    <div class="search-wrap">
+      <span class="icon">search</span>
+      <input type="text" placeholder="Search products…" value="${esc(search)}" oninput="filterProducts(this.value)" id="prod-search"/>
+    </div>
+    <div class="card">
+      <div class="tbl-wrap">
+        ${filtered.length===0 ? `<div class="empty"><span class="icon">inventory_2</span><h3>No products yet</h3><p>Add your first rice product.</p><button class="btn btn-primary" onclick="openProductForm()">Add Product</button></div>`
+        : `<table>
+          <thead><tr><th>Product</th><th>Sizes</th><th>Order</th><th>Status</th><th></th></tr></thead>
+          <tbody>${filtered.map(p => {
+            const sizes = sizesData[p.id]||[];
+            const sizePills = sizes.map(s=>`<span style="display:inline-block;padding:2px 6px;border-radius:5px;font-size:11px;margin:1px;background:${s.is_default?'#d1fae5':'#f3f4f6'};color:${s.is_default?'#065f46':'#4b5563'};font-weight:${s.is_default?'700':'400'};">${s.label}</span>`).join('') || '<span style="font-size:12px;color:#9ca3af;">None</span>';
+            const img = p.image_url ? `<img src="${esc(p.image_url)}" class="thumb" onerror="this.style.display='none'"/>` : `<div class="thumb-placeholder"><span class="icon">grain</span></div>`;
+            return `<tr>
+              <td><div style="display:flex;align-items:center;gap:10px;">${img}<div>
+                <div style="font-weight:600;color:#111827;">${esc(p.name)}</div>
+                ${p.badge?`<span class="badge badge-yellow">${esc(p.badge)}</span>`:''}
+              </div></div></td>
+              <td>${sizePills}</td>
+              <td style="color:#9ca3af;">#${p.display_order}</td>
+              <td>${p.is_published?'<span class="badge badge-green">Published</span>':'<span class="badge badge-gray">Hidden</span>'}</td>
+              <td><button class="act-btn" onclick='editProduct(${JSON.stringify(p.id)})'><span class="icon">edit</span></button>
+                  <button class="act-btn danger" onclick='deleteProduct(${JSON.stringify(p.id)},${JSON.stringify(p.name)})'><span class="icon">delete</span></button></td>
+            </tr>`;
+          }).join('')}</tbody></table>`}
+      </div>
+    </div>`;
+  // Store products globally for filter
+  window._products = products;
+}
+
+let _filterTimer;
+function filterProducts(val) {
+  clearTimeout(_filterTimer);
+  _filterTimer = setTimeout(()=>renderProductsTable(window._products||[], val), 200);
+}
+
+function openProductForm(product, sizes) {
+  editingProductId = product ? product.id : null;
+  const isEdit = !!product;
+  const p = product || {name:'',description:'',badge:'',image_url:'',display_order:1,is_published:true};
+  const sz = sizes || [{label:'5kg',display_order:1,is_default:true}];
+
+  openModal(isEdit?'Edit Product':'Add New Product', `
+    <div class="grid-2">
+      <div class="field"><label>Product Name</label><input id="p-name" value="${esc(p.name)}" placeholder="e.g. Premium Parboiled Rice"/></div>
+      <div class="field"><label>Badge</label><select id="p-badge">
+        ${['','Bestseller','Organic','New Harvest','Limited'].map(b=>`<option value="${b}" ${p.badge===b?'selected':''}>${b||'— None —'}</option>`).join('')}
+      </select></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="p-desc" rows="3">${esc(p.description)}</textarea></div>
+    <div class="grid-2">
+      <div class="field"><label>Product Image</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <label class="btn btn-secondary" style="cursor:pointer;flex-shrink:0;" for="p-img-file"><span class="icon">upload</span>Upload from device</label>
+          <input type="file" id="p-img-file" accept="image/*" style="display:none;" onchange="uploadProductImage(this)"/>
+          <span id="p-img-upload-status" style="font-size:12px;color:#9ca3af;"></span>
+        </div>
+        <input id="p-img" value="${esc(p.image_url||'')}" placeholder="https://… (or upload above)" oninput="previewImg(this.value)" style="margin-top:8px;"/>
+        <div class="hint">Upload a photo from your phone/device, or paste a public URL directly</div>
+        <img id="p-img-preview" class="img-preview" style="display:${p.image_url?'block':'none'}" src="${esc(p.image_url||'')}" onerror="this.style.display='none'"/>
+      </div>
+      <div>
+        <div class="field"><label>Display Order</label><input type="number" id="p-order" value="${p.display_order}" min="1"/></div>
+        <div class="field"><label>Visibility</label>${makeToggle('p-published', !!p.is_published)}</div>
+      </div>
+    </div>
+    <div class="field"><label>Package Sizes</label>
+      <div id="sizes-editor">${renderSizesEditor(sz)}</div>
+      <button type="button" class="add-size-btn" style="margin-top:8px;" onclick="addSizeRow()"><span class="icon">add</span>Add size</button>
+    </div>
+  `, `
+    <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" id="save-product-btn" onclick="saveProduct()"><span>${isEdit?'Update Product':'Add Product'}</span></button>
+  `, true);
+
+  window._formSizes = sz.map(s=>({...s}));
+}
+
+function renderSizesEditor(sizes) {
+  const SIZE_OPTS = ['1kg','5kg','10kg','25kg','50kg'];
+  return sizes.map((s,i)=>`
+    <div class="size-row" id="size-row-${i}">
+      <select onchange="updateSizeLabel(${i},this.value)">${SIZE_OPTS.map(o=>`<option ${s.label===o?'selected':''}>${o}</option>`).join('')}</select>
+      <button type="button" class="size-default-btn ${s.is_default?'active':''}" onclick="setDefaultSize(${i})">${s.is_default?'Default':'Set default'}</button>
+      <button type="button" class="size-remove" onclick="removeSizeRow(${i})"><span class="icon">close</span></button>
+    </div>`).join('');
+}
+
+function addSizeRow() {
+  if(!window._formSizes) window._formSizes=[];
+  window._formSizes.push({label:'5kg',display_order:window._formSizes.length+1,is_default:window._formSizes.length===0});
+  document.getElementById('sizes-editor').innerHTML = renderSizesEditor(window._formSizes);
+}
+function removeSizeRow(i) {
+  window._formSizes.splice(i,1);
+  document.getElementById('sizes-editor').innerHTML = renderSizesEditor(window._formSizes);
+}
+function updateSizeLabel(i,val) { if(window._formSizes) window._formSizes[i].label=val; }
+function setDefaultSize(i) {
+  if(!window._formSizes) return;
+  window._formSizes = window._formSizes.map((s,j)=>({...s,is_default:j===i}));
+  document.getElementById('sizes-editor').innerHTML = renderSizesEditor(window._formSizes);
+}
+function previewImg(url) {
+  const img = document.getElementById('p-img-preview');
+  if (!img) return;
+  if (url) { img.src=url; img.style.display='block'; }
+  else img.style.display='none';
+}
+
+async function uploadProductImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const status = document.getElementById('p-img-upload-status');
+  if (file.size > 5*1024*1024) { toast('Image is over the 5MB limit','error'); input.value=''; return; }
+  status.textContent = 'Uploading…';
+  status.style.color = '#9ca3af';
+  const ext = file.name.split('.').pop();
+  const path = `products/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+  const timeoutMs = 30000;
+  try {
+    const uploadPromise = db.storage.from('product-images').upload(path, file);
+    const timeoutPromise = new Promise((_,reject)=>setTimeout(()=>reject(new Error('Upload timed out — check your connection and try again')), timeoutMs));
+    const {error} = await Promise.race([uploadPromise, timeoutPromise]);
+    if (error) throw error;
+    const {data:pub} = db.storage.from('product-images').getPublicUrl(path);
+    document.getElementById('p-img').value = pub.publicUrl;
+    previewImg(pub.publicUrl);
+    status.textContent = 'Uploaded ✓';
+    status.style.color = '#059669';
+    setTimeout(()=>{ if(status) status.textContent=''; }, 2500);
+  } catch (err) {
+    status.textContent = 'Upload failed — tap to retry';
+    status.style.color = '#dc2626';
+    toast('Upload failed: '+(err.message||'unknown error'),'error');
+  } finally {
+    input.value = '';
+  }
+}
+
+async function saveProduct() {
+  const btn = document.getElementById('save-product-btn');
+  const name = document.getElementById('p-name').value.trim();
+  if (!name) { toast('Product name is required','error'); return; }
+  btn.disabled=true; btn.innerHTML='<span class="spin-sm"></span> Saving…';
+  const payload = {
+    name, description: document.getElementById('p-desc').value.trim(),
+    badge: document.getElementById('p-badge').value || null,
+    image_url: document.getElementById('p-img').value.trim() || null,
+    display_order: parseInt(document.getElementById('p-order').value)||1,
+    is_published: getToggle('p-published'),
+  };
+  let productId = editingProductId;
+  if (productId) {
+    const {error} = await db.from('products').update(payload).eq('id',productId);
+    if (error) { toast('Error: '+error.message,'error'); btn.disabled=false; btn.textContent='Update Product'; return; }
+  } else {
+    const {data,error} = await db.from('products').insert(payload).select().single();
+    if (error) { toast('Error: '+error.message,'error'); btn.disabled=false; btn.textContent='Add Product'; return; }
+    productId = data.id;
+  }
+  // Replace sizes
+  await db.from('product_sizes').delete().eq('product_id',productId);
+  const sizes = window._formSizes||[];
+  if (sizes.length>0) {
+    const rows = sizes.map((s,i)=>({product_id:productId,label:s.label,display_order:i+1,is_default:!!s.is_default}));
+    const {error} = await db.from('product_sizes').insert(rows);
+    if (error) { toast('Error saving sizes: '+error.message,'error'); }
+  }
+  closeModal();
+  toast(editingProductId?'Product updated':'Product added');
+  renderProducts();
+}
+
+async function editProduct(id) {
+  const p = window._products?.find(p=>p.id===id);
+  if (!p) return;
+  const sizes = sizesData[id]||[];
+  openProductForm(p, sizes);
+}
+
+function deleteProduct(id, name) {
+  confirm2(`Delete "${name}" and all its sizes?`, async()=>{
+    const {error} = await db.from('products').delete().eq('id',id);
+    if (error) toast('Error: '+error.message,'error');
+    else { toast('Product deleted'); renderProducts(); }
+  });
+}
+
+/* ══════════════════════════════════════════
+   GALLERY
+══════════════════════════════════════════ */
+let _galleryItems = [];
+let _galleryFilter = 'all';
+
+async function renderGallery() {
+  const {data} = await db.from('gallery_items').select('*').order('display_order');
+  _galleryItems = data||[];
+  renderGalleryGrid();
+}
+
+function renderGalleryGrid() {
+  const items = _galleryFilter==='all' ? _galleryItems : _galleryItems.filter(i=>i.category===_galleryFilter);
+  const cats = ['all','paddy','packaging','bags'];
+  document.getElementById('content').innerHTML = `
+    <div class="page-head">
+      <div><h1>Gallery & Media</h1><p>${_galleryItems.length} items · Upload via Supabase Storage → gallery-media</p></div>
+      <button class="btn btn-primary" onclick="openGalleryForm()"><span class="icon">add_photo_alternate</span>Add Item</button>
+    </div>
+    <div class="filter-row">
+      ${cats.map(c=>`<button class="filter-btn ${_galleryFilter===c?'active':''}" onclick="setGalFilter('${c}')">${c==='all'?'All':c.charAt(0).toUpperCase()+c.slice(1)}</button>`).join('')}
+    </div>
+    ${items.length===0?`<div class="empty"><span class="icon">photo_library</span><h3>No items yet</h3><p>Add photos and videos to your gallery.</p><button class="btn btn-primary" onclick="openGalleryForm()">Add Item</button></div>`
+    :`<div class="grid-3">${items.map(item=>`
+      <div class="gal-card" style="${!item.is_published?'opacity:.6':''}">
+        <div class="gal-img">
+          ${item.media_url && item.media_type==='photo'
+            ? `<img src="${esc(item.media_url)}" onerror="this.parentElement.innerHTML='<span class=\\'icon\\'>broken_image</span>'" style="width:100%;height:160px;object-fit:cover;"/>`
+            : item.media_url && item.media_type==='video'
+              ? `<div style="width:100%;height:160px;background:#111;display:flex;align-items:center;justify-content:center;"><span class="icon" style="font-family:'Material Symbols Outlined';font-size:44px;color:#fff;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">play_circle</span></div>`
+              : `<div style="width:100%;height:160px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;"><span class="icon" style="font-family:'Material Symbols Outlined';font-size:44px;color:#d1d5db;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">${item.media_type==='video'?'videocam':'image'}</span><span style="font-size:11px;color:#9ca3af;">No media yet</span></div>`}
+        </div>
+        <div class="gal-body">
+          <div style="display:flex;gap:4px;margin-bottom:6px;">
+            <span class="badge badge-gray">${item.category}</span>
+            <span class="badge badge-gray">${item.media_type}</span>
+            ${!item.is_published?'<span class="badge badge-red">Hidden</span>':''}
+          </div>
+          <h4>${esc(item.title)}</h4>
+          <p>${esc(item.description)}</p>
+          <div class="gal-foot">
+            <span style="font-size:11px;color:#9ca3af;">Order #${item.display_order}</span>
+            <div>
+              <button class="act-btn" onclick='editGalleryItem(${JSON.stringify(item.id)})'><span class="icon">edit</span></button>
+              <button class="act-btn danger" onclick='deleteGalleryItem(${JSON.stringify(item.id)},${JSON.stringify(item.title)})'><span class="icon">delete</span></button>
+            </div>
+          </div>
+        </div>
+      </div>`).join('')}</div>`}`;
+}
+
+function setGalFilter(cat) { _galleryFilter=cat; renderGalleryGrid(); }
+
+function openGalleryForm(item) {
+  editingGalleryId = item ? item.id : null;
+  const it = item || {title:'',description:'',category:'paddy',media_type:'photo',media_url:'',display_order:_galleryItems.length+1,is_published:true};
+  const cats=['paddy','packaging','bags'];
+  const types=['photo','video'];
+  openModal(item?'Edit Gallery Item':'Add Gallery Item', `
+    <div class="grid-2">
+      <div class="field"><label>Title</label><input id="g-title" value="${esc(it.title)}" placeholder="e.g. Raw Paddy Rice"/></div>
+      <div class="field"><label>Category</label><select id="g-cat">${cats.map(c=>`<option value="${c}" ${it.category===c?'selected':''}>${c.charAt(0).toUpperCase()+c.slice(1)}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="g-desc" rows="2">${esc(it.description)}</textarea></div>
+    <div class="grid-2">
+      <div class="field"><label>Media Type</label><select id="g-type">${types.map(t=>`<option value="${t}" ${it.media_type===t?'selected':''}>${t.charAt(0).toUpperCase()+t.slice(1)}</option>`).join('')}</select></div>
+      <div class="field"><label>Display Order</label><input type="number" id="g-order" value="${it.display_order}" min="1"/></div>
+    </div>
+    <div class="field"><label>Media File</label>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <label class="btn btn-secondary" style="cursor:pointer;flex-shrink:0;" for="g-media-file"><span class="icon">upload</span>Upload from device</label>
+        <input type="file" id="g-media-file" accept="image/*,video/*" style="display:none;" onchange="uploadGalleryMedia(this)"/>
+        <span id="g-media-upload-status" style="font-size:12px;color:#9ca3af;"></span>
+      </div>
+      <input id="g-url" value="${esc(it.media_url||'')}" placeholder="https://… (or upload above)" oninput="previewGalImg(this.value)" style="margin-top:8px;"/>
+      <div class="hint">Upload a photo or video from your phone/device, or paste a public URL directly. Max 50MB.</div>
+      <img id="g-img-preview" class="img-preview" style="display:${it.media_url&&it.media_type==='photo'?'block':'none'}" src="${esc(it.media_url||'')}" onerror="this.style.display='none'"/>
+    </div>
+    <div class="field"><label>Visibility</label>${makeToggle('g-published', !!it.is_published)}</div>
+  `, `
+    <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" id="save-gal-btn" onclick="saveGalleryItem()">${item?'Update':'Add Item'}</button>
+  `, true);
+}
+
+function previewGalImg(url) {
+  const img = document.getElementById('g-img-preview');
+  if (!img) return;
+  if (url) { img.src=url; img.style.display='block'; }
+  else img.style.display='none';
+}
+
+async function uploadGalleryMedia(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const status = document.getElementById('g-media-upload-status');
+  const isVideo = file.type.startsWith('video/');
+  if (file.size > 50*1024*1024) { toast('File is over 50MB limit','error'); input.value=''; return; }
+  status.textContent = 'Uploading…';
+  status.style.color = '#9ca3af';
+  const ext = file.name.split('.').pop();
+  const path = `gallery/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+  const timeoutMs = 60000;
+  try {
+    const uploadPromise = db.storage.from('gallery-media').upload(path, file);
+    const timeoutPromise = new Promise((_,reject)=>setTimeout(()=>reject(new Error('Upload timed out — check your connection and try again')), timeoutMs));
+    const {error} = await Promise.race([uploadPromise, timeoutPromise]);
+    if (error) throw error;
+    const {data:pub} = db.storage.from('gallery-media').getPublicUrl(path);
+    document.getElementById('g-url').value = pub.publicUrl;
+    const typeSelect = document.getElementById('g-type');
+    if (typeSelect) typeSelect.value = isVideo ? 'video' : 'photo';
+    if (!isVideo) previewGalImg(pub.publicUrl); else previewGalImg('');
+    status.textContent = 'Uploaded ✓';
+    status.style.color = '#059669';
+    setTimeout(()=>{ if(status) status.textContent=''; }, 2500);
+  } catch (err) {
+    status.textContent = 'Upload failed — tap to retry';
+    status.style.color = '#dc2626';
+    toast('Upload failed: '+(err.message||'unknown error'),'error');
+  } finally {
+    input.value = '';
+  }
+}
+
+async function saveGalleryItem() {
+  const btn = document.getElementById('save-gal-btn');
+  const title = document.getElementById('g-title').value.trim();
+  if (!title) { toast('Title is required','error'); return; }
+  btn.disabled=true; btn.innerHTML='<span class="spin-sm"></span> Saving…';
+  const payload = {
+    title, description: document.getElementById('g-desc').value.trim(),
+    category: document.getElementById('g-cat').value,
+    media_type: document.getElementById('g-type').value,
+    media_url: document.getElementById('g-url').value.trim()||null,
+    display_order: parseInt(document.getElementById('g-order').value)||1,
+    is_published: getToggle('g-published'),
+  };
+  if (editingGalleryId) {
+    const {error} = await db.from('gallery_items').update(payload).eq('id',editingGalleryId);
+    if (error) { toast('Error: '+error.message,'error'); btn.disabled=false; btn.textContent='Update'; return; }
+    toast('Item updated');
+  } else {
+    const {error} = await db.from('gallery_items').insert(payload);
+    if (error) { toast('Error: '+error.message,'error'); btn.disabled=false; btn.textContent='Add Item'; return; }
+    toast('Item added');
+  }
+  closeModal();
+  renderGallery();
+}
+
+function editGalleryItem(id) {
+  const item = _galleryItems.find(i=>i.id===id);
+  if (item) openGalleryForm(item);
+}
+function deleteGalleryItem(id, title) {
+  confirm2(`Delete "${title}"?`, async()=>{
+    const {error} = await db.from('gallery_items').delete().eq('id',id);
+    if (error) toast('Error: '+error.message,'error');
+    else { toast('Item deleted'); renderGallery(); }
+  });
+}
+
+/* ══════════════════════════════════════════
+   CUSTOMERS
+══════════════════════════════════════════ */
+let _customers = [];
+async function renderCustomers() {
+  const {data,error} = await db.from('profiles').select('*').eq('role','customer').order('created_at',{ascending:false});
+  if (error) { document.getElementById('content').innerHTML=`<div class="empty"><span class="icon">error</span><h3>Error loading customers</h3><p>${esc(error.message)}</p></div>`; return; }
+  _customers = data||[];
+  renderCustomersTable('');
+}
+function renderCustomersTable(search) {
+  const filtered = search ? _customers.filter(c=>(c.full_name||'').toLowerCase().includes(search.toLowerCase())||(c.phone||'').includes(search)) : _customers;
+  document.getElementById('content').innerHTML = `
+    <div class="page-head"><div><h1>Customers</h1><p>${_customers.length} customer profiles from Supabase Auth</p></div></div>
+    <div class="search-wrap">
+      <span class="icon">search</span>
+      <input type="text" placeholder="Search by name or phone…" oninput="filterCustomers(this.value)" value="${esc(search)}"/>
+    </div>
+    <div class="card">
+      <div class="tbl-wrap">
+        ${filtered.length===0
+          ? `<div class="empty"><span class="icon">group</span><h3>No customers yet</h3><p>Customers who sign up on the storefront appear here automatically via the profiles trigger.</p></div>`
+          : `<table><thead><tr><th>Customer</th><th>Phone</th><th>Address</th><th>Joined</th><th></th></tr></thead>
+            <tbody>${filtered.map(c=>`<tr>
+              <td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar">${(c.full_name||'?')[0].toUpperCase()}</div><span style="font-weight:500;">${esc(c.full_name||'Unnamed')}</span></div></td>
+              <td style="color:#6b7280;">${esc(c.phone||'—')}</td>
+              <td style="color:#6b7280;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(c.delivery_address||'—')}</td>
+              <td style="color:#9ca3af;white-space:nowrap;">${new Date(c.created_at).toLocaleDateString()}</td>
+              <td><button class="act-btn" onclick='viewCustomer(${JSON.stringify(c.id)})'><span class="icon">person</span></button></td>
+            </tr>`).join('')}</tbody></table>`}
+      </div>
+    </div>`;
+}
+let _custFilterTimer;
+function filterCustomers(val) {
+  clearTimeout(_custFilterTimer);
+  _custFilterTimer=setTimeout(()=>renderCustomersTable(val),200);
+}
+function viewCustomer(id) {
+  const c = _customers.find(x=>x.id===id);
+  if (!c) return;
+  openModal(c.full_name||'Customer Profile', `
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+      <div class="avatar" style="width:48px;height:48px;font-size:18px;">${(c.full_name||'?')[0].toUpperCase()}</div>
+      <div><div style="font-weight:700;font-size:15px;">${esc(c.full_name||'Unnamed')}</div>
+      <div style="font-size:12px;color:#9ca3af;">Joined ${new Date(c.created_at).toLocaleDateString()}</div></div>
+    </div>
+    ${[['Phone / WhatsApp',c.phone],['Delivery Address',c.delivery_address],['Profile ID',c.id]].map(([l,v])=>`
+      <div style="background:#f9fafb;border-radius:10px;padding:12px;margin-bottom:10px;">
+        <div style="font-size:11px;color:#9ca3af;margin-bottom:2px;">${l}</div>
+        <div style="font-size:13.5px;font-weight:500;word-break:break-all;">${esc(v||'Not set')}</div>
+      </div>`).join('')}
+  `, `<button class="btn btn-secondary" onclick="closeModal()">Close</button>`);
+}
+
+/* ══════════════════════════════════════════
+   BRAND MANAGER
+   Backed by a `site_settings` key/value table:
+     create table public.site_settings (
+       key text primary key,
+       value text,
+       updated_at timestamptz default now()
+     );
+     alter table public.site_settings enable row level security;
+     create policy "Public can read settings" on public.site_settings for select using (true);
+     create policy "Admins can write settings" on public.site_settings for all using (is_admin()) with check (is_admin());
+   Your storefront (index.html) should fetch this table and use these
+   values instead of hardcoded text/links wherever you want them editable.
+══════════════════════════════════════════ */
+const BRAND_FIELDS = [
+  {group:'Hero Section', fields:[
+    {key:'hero_headline', label:'Hero Headline', type:'text', placeholder:'e.g. Premium Nigerian Rice, Delivered Fresh'},
+    {key:'hero_subtext', label:'Hero Subtext', type:'textarea', placeholder:'Short supporting line under the headline'},
+    {key:'hero_image_url', label:'Hero Image', type:'image', placeholder:'https://…'},
+  ]},
+  {group:'Brand Info', fields:[
+    {key:'brand_name', label:'Brand / Business Name', type:'text', placeholder:'Kanol Rice Farm Limited'},
+    {key:'about_headline', label:'About Section Headline', type:'text', placeholder:'Cultivated by Hands that Know the Earth'},
+    {key:'about_text', label:'About / Story Section', type:'textarea', placeholder:'Tell customers about the farm…'},
+    {key:'about_image_url', label:'About Section Photo', type:'image', placeholder:'https://…'},
+    {key:'logo_url', label:'Logo Image', type:'image', placeholder:'https://…'},
+  ]},
+  {group:'Contact & Ordering', fields:[
+    {key:'whatsapp_number', label:'WhatsApp Number', type:'text', placeholder:'+2348153302590'},
+    {key:'order_message_template', label:'WhatsApp Order Message Template', type:'textarea', placeholder:'Hi, I\'d like to order…'},
+    {key:'partner_message_template', label:'WhatsApp Partner Inquiry Template', type:'textarea', placeholder:'Hi, I\'m interested in becoming a distributor…'},
+    {key:'contact_email', label:'Contact Email', type:'text', placeholder:'hello@kanolrice.com'},
+    {key:'delivery_note', label:'Delivery / Shipping Note', type:'textarea', placeholder:'e.g. Delivery within Lagos in 2-3 days'},
+  ]},
+  {group:'Social Links', fields:[
+    {key:'instagram_url', label:'Instagram URL', type:'text', placeholder:'https://instagram.com/…'},
+    {key:'facebook_url', label:'Facebook URL', type:'text', placeholder:'https://facebook.com/…'},
+  ]},
+];
+
+let _brandSettings = {};
+
+async function renderBrandManager() {
+  const {data, error} = await db.from('site_settings').select('*');
+  const c = document.getElementById('content');
+  if (error) {
+    c.innerHTML = `<div class="page-head"><div><h1>Brand Manager</h1><p>Edit your storefront content</p></div></div>
+      <div class="card"><div class="card-body">
+        <div class="warn-box"><span class="icon">warning</span>The <code>site_settings</code> table doesn't exist yet. Run this once in <strong>Supabase → SQL Editor</strong>, then reload this page:</div>
+        <div style="position:relative;margin-top:10px;">
+          <pre class="sql">${esc(BRAND_SETTINGS_SQL)}</pre>
+          <button onclick="copyText(this, ${JSON.stringify(BRAND_SETTINGS_SQL)})" style="position:absolute;top:8px;right:8px;background:#374151;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit;">Copy</button>
+        </div>
+      </div></div>`;
+    return;
+  }
+  _brandSettings = {};
+  (data||[]).forEach(row => { _brandSettings[row.key] = row.value; });
+
+  c.innerHTML = `
+    <div class="page-head" style="position:sticky;top:0;background:#f3f4f6;z-index:20;padding-top:4px;padding-bottom:10px;margin-bottom:10px;">
+      <div><h1>Brand Manager</h1><p>Edit the text, images and links shown on your storefront</p></div>
+      <button class="btn btn-primary" id="brand-save-btn" onclick="saveBrandSettings()"><span class="icon">save</span>Save Changes</button>
+    </div>
+    <div class="info-box"><span class="icon">info</span>These values feed your storefront (index.html). Your storefront needs to read from the <code>site_settings</code> table for changes here to appear live on the site.</div>
+    ${BRAND_FIELDS.map(group => `
+      <div class="card">
+        <div class="card-head"><h2>${esc(group.group)}</h2></div>
+        <div class="card-body">
+          ${group.fields.map(f => renderBrandField(f)).join('')}
+        </div>
+      </div>`).join('')}
+  `;
+}
+
+function renderBrandField(f) {
+  const val = _brandSettings[f.key] || '';
+  if (f.type === 'textarea') {
+    return `<div class="field"><label>${esc(f.label)}</label><textarea id="brand-${f.key}" rows="3" placeholder="${esc(f.placeholder||'')}">${esc(val)}</textarea></div>`;
+  }
+  if (f.type === 'image') {
+    return `<div class="field"><label>${esc(f.label)}</label>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <label class="btn btn-secondary" style="cursor:pointer;flex-shrink:0;" for="brand-file-${f.key}"><span class="icon">upload</span>Upload from device</label>
+        <input type="file" id="brand-file-${f.key}" accept="image/*" style="display:none;" onchange="uploadBrandImage(this,'${f.key}')"/>
+        <span id="brand-status-${f.key}" style="font-size:12px;color:#9ca3af;"></span>
+      </div>
+      <input id="brand-${f.key}" value="${esc(val)}" placeholder="${esc(f.placeholder||'')}" oninput="previewBrandImg('${f.key}',this.value)" style="margin-top:8px;"/>
+      <img id="brand-preview-${f.key}" class="img-preview" style="display:${val?'block':'none'}" src="${esc(val)}" onerror="this.style.display='none'"/>
+    </div>`;
+  }
+  return `<div class="field"><label>${esc(f.label)}</label><input id="brand-${f.key}" value="${esc(val)}" placeholder="${esc(f.placeholder||'')}"/></div>`;
+}
+
+function previewBrandImg(key, url) {
+  const img = document.getElementById('brand-preview-'+key);
+  if (!img) return;
+  if (url) { img.src=url; img.style.display='block'; } else img.style.display='none';
+}
+
+async function uploadBrandImage(input, key) {
+  const file = input.files[0];
+  if (!file) return;
+  const status = document.getElementById('brand-status-'+key);
+  if (file.size > 5*1024*1024) { toast('Image is over the 5MB limit for this field','error'); input.value=''; return; }
+  status.textContent = 'Uploading…';
+  status.style.color = '#9ca3af';
+  const ext = file.name.split('.').pop();
+  const path = `brand/${key}-${Date.now()}.${ext}`;
+  const timeoutMs = 30000;
+  try {
+    const uploadPromise = db.storage.from('product-images').upload(path, file);
+    const timeoutPromise = new Promise((_,reject)=>setTimeout(()=>reject(new Error('Upload timed out — check your connection and try again')), timeoutMs));
+    const {error} = await Promise.race([uploadPromise, timeoutPromise]);
+    if (error) throw error;
+    const {data:pub} = db.storage.from('product-images').getPublicUrl(path);
+    document.getElementById('brand-'+key).value = pub.publicUrl;
+    previewBrandImg(key, pub.publicUrl);
+    status.textContent = 'Uploaded ✓ — click Save Changes below';
+    status.style.color = '#059669';
+  } catch (err) {
+    status.textContent = 'Upload failed — tap to retry';
+    status.style.color = '#dc2626';
+    toast('Upload failed: '+(err.message||'unknown error'),'error');
+  } finally {
+    input.value = '';
+  }
+}
+
+async function saveBrandSettings() {
+  const btn = document.getElementById('brand-save-btn');
+  btn.disabled = true; btn.innerHTML = '<span class="spin-sm"></span> Saving…';
+  const rows = [];
+  BRAND_FIELDS.forEach(group => group.fields.forEach(f => {
+    const el = document.getElementById('brand-'+f.key);
+    if (el) rows.push({key:f.key, value:el.value.trim()||null, updated_at:new Date().toISOString()});
+  }));
+  const timeoutMs = 20000;
+  try {
+    const savePromise = db.from('site_settings').upsert(rows, {onConflict:'key'});
+    const timeoutPromise = new Promise((_,reject)=>setTimeout(()=>reject(new Error('Save timed out — check your connection and try again')), timeoutMs));
+    const {error} = await Promise.race([savePromise, timeoutPromise]);
+    if (error) throw error;
+    btn.innerHTML = '<span class="icon">check_circle</span>Saved ✓';
+    toast('Storefront content saved — live on your site now');
+    setTimeout(()=>{ btn.disabled=false; btn.innerHTML='<span class="icon">save</span>Save Changes'; }, 2000);
+  } catch (err) {
+    btn.disabled = false; btn.innerHTML = '<span class="icon">save</span>Save Changes';
+    toast('Error saving: '+(err.message||'unknown error'),'error');
+  }
+}
+
+const BRAND_SETTINGS_SQL = `create table public.site_settings (\n  key text primary key,\n  value text,\n  updated_at timestamptz default now()\n);\n\nalter table public.site_settings enable row level security;\n\ncreate policy "Public can read settings"\n  on public.site_settings for select\n  using (true);\n\ncreate policy "Admins can write settings"\n  on public.site_settings for all\n  using (is_admin())\n  with check (is_admin());`;
+
+/* ══════════════════════════════════════════
+   SETTINGS
+══════════════════════════════════════════ */
+function renderSettings() {
+  const promoteSql = `update public.profiles\nset role = 'admin'\nwhere id = (\n  select id from auth.users\n  where email = 'YOUR_EMAIL_HERE'\n);`;
+  document.getElementById('content').innerHTML = `
+    <div class="page-head"><div><h1>Settings</h1><p>Project info, admin promotion, and upload guide</p></div></div>
+
+    <div class="card">
+      <div class="card-head"><h2>Supabase Project</h2></div>
+      <div class="card-body">
+        <div class="grid-2">
+          ${[['Signed in as', currentUser?.email||'—'],
+             ['Phase','3 complete — Admin panel live']
+            ].map(([l,v])=>`<div style="background:#f9fafb;border-radius:10px;padding:12px;">
+              <div style="font-size:11px;color:#9ca3af;margin-bottom:2px;">${l}</div>
+              <div style="font-size:12px;font-weight:500;word-break:break-all;">${esc(v)}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Promote Account to Admin</h2></div>
+      <div class="card-body">
+        <p style="font-size:13px;color:#374151;margin-bottom:12px;">Your email is pre-filled. Run this in <strong>Supabase → SQL Editor</strong> if you haven't already.</p>
+        <div style="position:relative;">
+          <pre class="sql">${esc(promoteSql)}</pre>
+          <button onclick="copyText(this, ${JSON.stringify(promoteSql)})" style="position:absolute;top:8px;right:8px;background:#374151;color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit;">Copy</button>
+        </div>
+        <div class="warn-box" style="margin-top:12px;"><span class="icon">warning</span>Run this only once. After running it, you can log in to this admin panel.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>How to Upload Images & Videos</h2></div>
+      <div class="card-body">
+        <ol style="font-size:13px;color:#374151;line-height:2;padding-left:18px;">
+          <li>Go to <strong>Supabase → Storage</strong></li>
+          <li>Open <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;">product-images</code> for product photos, or <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;">gallery-media</code> for gallery photos/videos</li>
+          <li>Click <strong>Upload file</strong> and choose your image or video</li>
+          <li>Once uploaded, click the file → <strong>Get URL</strong> → copy the public URL</li>
+          <li>Paste it into the <strong>Image URL</strong> or <strong>Media URL</strong> field when adding/editing a product or gallery item</li>
+        </ol>
+        <div style="font-size:12px;color:#9ca3af;margin-top:10px;">Max: product-images = 5MB · gallery-media = 50MB</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Project Phases</h2></div>
+      <div class="card-body">
+        ${[
+          [true,'Phase 1 — Schema (products, product_sizes, gallery_items)'],
+          [true,'Phase 2 — Storage buckets (product-images, gallery-media)'],
+          [true,'Phase 2.5 — Role split (profiles, is_admin(), RLS)'],
+          [true,'Phase 3 — Admin panel (this panel)'],
+          [false,'Phase 4 — Rewire index.html to fetch from Supabase'],
+          [false,'Phase 5 — Customer signup/login on storefront'],
+          [false,'Phase 6 — WhatsApp order flow personalisation'],
+        ].map(([done,label])=>`<div class="phase-row ${done?'done':'todo'}">
+          <span class="icon">${done?'check_circle':'radio_button_unchecked'}</span>${label}
+        </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(()=>{ btn.textContent='Copied ✓'; setTimeout(()=>btn.textContent='Copy',2000); });
+}
+</script>
+</body>
+</html>
